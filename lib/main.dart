@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:friendly_faces/pages/auth_page.dart';
+import 'package:get/get.dart';
 
 import 'firebase_options.dart';
 
@@ -17,9 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(body: Placeholder()),
+    return GetMaterialApp(
+      initialRoute: "/auth",
+      debugShowCheckedModeBanner: false,
+      getPages: [
+        GetPage(name: '/auth', page: () => const AuthPage()),
+      ],
     );
   }
 }
