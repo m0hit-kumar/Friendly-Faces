@@ -6,15 +6,13 @@ class InputWidget extends StatelessWidget {
   const InputWidget(
       {Key? key,
       required this.constants,
-      required this.title,
-      required this.hintText,
+       required this.hintText,
       required this.controller,
       required this.isObscrue})
       : super(key: key);
 
   final Constants constants;
-  final String title;
-  final String hintText;
+   final String hintText;
   final TextEditingController controller;
   final bool isObscrue;
 

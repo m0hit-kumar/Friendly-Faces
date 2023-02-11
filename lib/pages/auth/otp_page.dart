@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:friendly_faces/constants/constants.dart';
-import 'package:friendly_faces/widgets/custom_button.dart';
 import 'package:get/get.dart';
 
 class AdminOTPScreen extends StatefulWidget {
@@ -258,9 +257,10 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                     style: TextButton.styleFrom(
                       shadowColor: Colors.black,
                       elevation: 8.0,
-                      backgroundColor: Color.fromARGB(255, 234, 238, 243),
+                      backgroundColor: const Color.fromARGB(255, 234, 238, 243),
                     ),
                     onPressed: () {
+                      // ignore: avoid_print
                       print("0000000 ${_otp["pin1"]?.text}");
                     },
                     child: const Padding(
