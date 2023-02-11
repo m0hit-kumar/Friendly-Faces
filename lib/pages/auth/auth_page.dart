@@ -52,88 +52,90 @@ class _AuthPageState extends State<AuthPage> {
                   ]),
             ),
           ),
-          Container(
-              width: Get.width,
-              decoration: BoxDecoration(
-                color: constants.whiteBackground,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(25.0),
-                  topRight: Radius.circular(25.0),
+          SingleChildScrollView(
+            child: Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                  color: constants.whiteBackground,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0),
+                  ),
                 ),
-              ),
-              height: Get.height * 3 / 4,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 100.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        "Mobile No.",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    InputWidget(
-                      constants: constants,
-                      controller: phoneController,
-                      hintText: '',
-                      isObscrue: false,
-                      title: 'Mobile NO.',
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        "Mobile No.",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    InputWidget(
-                      constants: constants,
-                      controller: phoneController,
-                      hintText: '',
-                      isObscrue: false,
-                      title: 'Mobile NO.',
-                    ),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                          fontSize: 15, color: constants.centerLeftColor),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomButton(
-                          constants: constants,
-                          height: Get.height * 0.06,
-                          onTap: () {},
-                          title: 'SignUp',
-                          width: Get.width * 0.39,
+                height: Get.height * 3 / 4,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 30.0, right: 30.0, top: 100.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "Mobile No.",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500),
                         ),
-                        CustomButton(
-                          constants: constants,
-                          height: Get.height * 0.06,
-                          onTap: () {},
-                          title: 'Login',
-                          width: Get.width * 0.39,
+                      ),
+                      InputWidget(
+                        constants: constants,
+                        controller: phoneController,
+                        hintText: '',
+                        isObscrue: false,
+                        title: 'Mobile NO.',
+                      ),
+                      const SizedBox(
+                        height: 40.0,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "Mobile No.",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500),
                         ),
-                      ],
-                    )
-                  ],
-                ),
-              )),
+                      ),
+                      InputWidget(
+                        constants: constants,
+                        controller: phoneController,
+                        hintText: '',
+                        isObscrue: false,
+                        title: 'Mobile NO.',
+                      ),
+                      const SizedBox(
+                        height: 40.0,
+                      ),
+                      Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                            fontSize: 15, color: constants.centerLeftColor),
+                      ),
+                      SizedBox(
+                        height: Get.height * 0.2,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomButton(
+                            constants: constants,
+                            height: Get.height * 0.06,
+                            onTap: () {},
+                            title: 'SignUp',
+                            width: Get.width * 0.39,
+                          ),
+                          CustomButton(
+                            constants: constants,
+                            height: Get.height * 0.06,
+                            onTap: () {},
+                            title: 'Login',
+                            width: Get.width * 0.39,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ]),
       ),
     );
