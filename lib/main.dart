@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
+import 'package:friendly_faces/pages/auth/create_profile.dart';
 import 'package:friendly_faces/pages/auth/otp_page.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/auth",
+      initialRoute: "/createProfile",
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/otpPage",
           page: () => const AdminOTPScreen(),
+        ),
+        GetPage(
+          name: "/createProfile",
+          page: () => const CreateProfile(),
         ),
       ],
     );
