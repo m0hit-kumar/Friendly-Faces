@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/auth",
+      initialRoute: "/home",
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/auth', page: () => const AuthPage()),
+        GetPage(name: '/home', page: () => const AuthPage()),
       ],
     );
   }
