@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/controller/signup_controller.dart';
 import 'package:friendly_faces/widgets/custom_button.dart';
 import 'package:friendly_faces/widgets/input_widget.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,10 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   final constants = Get.put(Constants());
+  final authController = Get.put(SignUpController());
+  TextEditingController phone = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +81,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                         InputWidget(
                           constants: constants,
-                          controller: phoneController,
+                          controller: phone,
                           hintText: '',
                           isObscrue: false,
                         ),
@@ -95,12 +96,12 @@ class _AuthPageState extends State<AuthPage> {
                                 fontSize: 15, fontWeight: FontWeight.w500),
                           ),
                         ),
-                        InputWidget(
-                          constants: constants,
-                          controller: passwordController,
-                          hintText: '',
-                          isObscrue: true,
-                        ),
+                        // InputWidget(
+                        //   constants: constants,
+                        //   // controller: authController.otp,
+                        //   hintText: '',
+                        //   isObscrue: true,
+                        // ),
                         const SizedBox(
                           height: 40.0,
                         ),
@@ -118,7 +119,10 @@ class _AuthPageState extends State<AuthPage> {
                             CustomButton(
                               constants: constants,
                               height: Get.height * 0.06,
-                              onTap: () {},
+                              onTap: () {
+                                authController
+                                    .phoneAuthentication(phone.text.trim());
+                              },
                               title: 'SignUp',
                               width: Get.width * 0.39,
                             ),

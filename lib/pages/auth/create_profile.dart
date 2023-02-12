@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:friendly_faces/constants/constants.dart';
-import 'package:friendly_faces/widgets/custom_button.dart';
-import 'package:friendly_faces/widgets/input_widget.dart';
 import 'package:get/get.dart';
 
 class CreateProfile extends StatefulWidget {
@@ -222,7 +219,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     ),
                   ),
                 ),
-                SizedBox(height: 100.0),
+                const SizedBox(height: 100.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

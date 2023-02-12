@@ -58,6 +58,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '638838664523',
     projectId: 'friendly-faces-29a8d',
     storageBucket: 'friendly-faces-29a8d.appspot.com',
+    androidClientId:
+        '638838664523-nltrnk4vnkomu167civolt0o1p2ob4dh.apps.googleusercontent.com',
     iosClientId:
         '638838664523-6n8nve3vs0g4o8r2mb5ub93g7nh8sgjq.apps.googleusercontent.com',
     iosBundleId: 'com.example.friendlyFaces',
@@ -69,16 +71,21 @@ class DefaultFirebaseOptions {
     messagingSenderId: '638838664523',
     projectId: 'friendly-faces-29a8d',
     storageBucket: 'friendly-faces-29a8d.appspot.com',
+    androidClientId:
+        '638838664523-nltrnk4vnkomu167civolt0o1p2ob4dh.apps.googleusercontent.com',
     iosClientId:
         '638838664523-6n8nve3vs0g4o8r2mb5ub93g7nh8sgjq.apps.googleusercontent.com',
     iosBundleId: 'com.example.friendlyFaces',
   );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBeSft0kgMvvGFAqr6S1OEas-bU6dCjRmU',
     appId: '1:638838664523:ios:ade256827672ae47aeccce',
     messagingSenderId: '638838664523',
     projectId: 'friendly-faces-29a8d',
     storageBucket: 'friendly-faces-29a8d.appspot.com',
+    androidClientId:
+        '638838664523-nltrnk4vnkomu167civolt0o1p2ob4dh.apps.googleusercontent.com',
     iosClientId:
         '638838664523-6n8nve3vs0g4o8r2mb5ub93g7nh8sgjq.apps.googleusercontent.com',
     iosBundleId: 'com.example.friendlyFaces',

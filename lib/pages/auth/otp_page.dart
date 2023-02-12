@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/controller/otp_controller.dart';
 import 'package:get/get.dart';
 
 class AdminOTPScreen extends StatefulWidget {
@@ -18,10 +19,13 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
     'pin2': TextEditingController(),
     'pin3': TextEditingController(),
     'pin4': TextEditingController(),
+    'pin5': TextEditingController(),
+    'pin6': TextEditingController(),
   };
 
   final constants = Get.put(Constants());
-  TextEditingController otpController = TextEditingController();
+  final otpController = Get.put(OtpController());
+  // TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,27 +110,29 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: constants.whiteBackground),
                         ),
-                        width: 60,
-                        height: 56,
-                        child: TextFormField(
-                          controller: _otp["pin1"],
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: "0",
-                            border: InputBorder.none,
+                        width: 46,
+                        height: 46,
+                        child: Center(
+                          child: TextFormField(
+                            controller: _otp["pin1"],
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "0",
+                              border: InputBorder.none,
+                            ),
+                            autofocus: false,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1),
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
-                          autofocus: false,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
                         ),
                       ),
                       Container(
@@ -145,8 +151,8 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: constants.whiteBackground),
                         ),
-                        width: 60,
-                        height: 56,
+                        width: 46,
+                        height: 46,
                         child: TextFormField(
                           controller: _otp["pin2"],
                           onChanged: (value) {
@@ -184,8 +190,8 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: constants.whiteBackground),
                         ),
-                        width: 60,
-                        height: 56,
+                        width: 46,
+                        height: 46,
                         child: TextFormField(
                           controller: _otp["pin3"],
                           onChanged: (value) {
@@ -223,10 +229,88 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: constants.whiteBackground),
                         ),
-                        width: 60,
-                        height: 56,
+                        width: 46,
+                        height: 46,
                         child: TextFormField(
                           controller: _otp["pin4"],
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            }
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "0",
+                            border: InputBorder.none,
+                          ),
+                          autofocus: false,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xffa3b1c6), // darker color
+                            ),
+                            BoxShadow(
+                              color: Color(0xffe0e5ec), // background color
+                              spreadRadius: -12.0,
+                              blurRadius: 12.0,
+                            ),
+                          ],
+                          color: constants.inputBackgroundColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: constants.whiteBackground),
+                        ),
+                        width: 46,
+                        height: 46,
+                        child: TextFormField(
+                          controller: _otp["pin5"],
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            }
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "0",
+                            border: InputBorder.none,
+                          ),
+                          autofocus: false,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xffa3b1c6), // darker color
+                            ),
+                            BoxShadow(
+                              color: Color(0xffe0e5ec), // background color
+                              spreadRadius: -12.0,
+                              blurRadius: 12.0,
+                            ),
+                          ],
+                          color: constants.inputBackgroundColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: constants.whiteBackground),
+                        ),
+                        width: 46,
+                        height: 46,
+                        child: TextFormField(
+                          controller: _otp["pin6"],
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
@@ -261,7 +345,11 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                     ),
                     onPressed: () {
                       // ignore: avoid_print
-                      print("0000000 ${_otp["pin1"]?.text}");
+                      var otp =
+                          "${_otp["pin1"]?.text}${_otp["pin2"]?.text}${_otp["pin3"]?.text}${_otp["pin4"]?.text}${_otp["pin5"]?.text}${_otp["pin6"]?.text}"
+                              .trim();
+                      print(otp);
+                      otpController.verifyOtp(otp);
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(
