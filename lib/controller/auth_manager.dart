@@ -6,44 +6,41 @@ class AutenticationManager extends GetxController {
   static get instance => Get.find();
   final _auth = FirebaseAuth.instance;
 
-  var verificationId = "".obs;
+  static String verificationId = "";
 
   Future<void> checkPhoneNumber(String number) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: number,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _auth.signInWithCredential(credential);
-        // ignore: avoid_print
-        print(
-            "------------------- verfication completed   $credential  $verificationId ");
+        //  print(
+        //     "------------------- verfication completed   $credential  $verificationId ");
       },
       verificationFailed: (FirebaseAuthException e) {
         if (e.code == 'invalid-phone-number') {}
-        // ignore: avoid_print
-        print("Error 00000000000000000 ${e.message}");
+        //  print("Error 00000000000000000 ${e.message}");
       },
-      codeSent: (String verificationId, int? resendToken) {
-        this.verificationId.value = verificationId;
-        // ignore: avoid_print
-        print("------------------- co/desent  $verificationId ");
+      codeSent: (String verifyid, int? resendToken) {
+        AutenticationManager.verificationId = verifyid;
+        // print("------------------- co/desent  $verificationId ");
         Get.offAll(const AdminOTPScreen());
       },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        // ignore: avoid_print
-
-        this.verificationId.value = verificationId;
-        print("------------------- codeAutoRetrievalTimeout $verificationId ");
+      codeAutoRetrievalTimeout: (String verifyid) {
+        AutenticationManager.verificationId = verifyid;
+        // print("------------------- codeAutoRetrievalTimeout $verificationId ");
       },
     );
+
+    // print("---------------------------- out $verificationId");
   }
 
   Future<bool> verifyOTP(String otp) async {
-    print("xxxxxxxxxxxxxxxxxx $otp");
+    // print("xxxxxxxxxxxxxxxxxx $otp");
 
-    print("0000000000000000000 ${verificationId.value}");
+    // print("------------------------- $verificationId");
     var credential = await _auth.signInWithCredential(
         PhoneAuthProvider.credential(
-            verificationId: verificationId.value, smsCode: otp));
+            verificationId: verificationId, smsCode: otp));
     return credential.user != null ? true : false;
   }
 }
