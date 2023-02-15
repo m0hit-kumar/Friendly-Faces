@@ -40,15 +40,16 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                 end: Alignment.centerRight),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(28.0),
+            padding: const EdgeInsets.only(
+                top: 30.0, bottom: 28.0, left: 28.0, right: 28.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Verification Page",
                   style: TextStyle(
                       fontSize: 30,
-                      color: constants.whiteBackground,
+                      color: Colors.white,
                       fontWeight: FontWeight.w700),
                 ),
                 Center(
@@ -75,19 +76,19 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                     ),
                   ),
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "OTP sent!\n On your number +91 9876543210",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
-                      color: constants.whiteBackground,
+                      color: Colors.white,
                       // fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
                 Form(
                   key: _formKey,
@@ -108,7 +109,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,
@@ -149,7 +150,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,
@@ -188,7 +189,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,
@@ -227,7 +228,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,
@@ -266,7 +267,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,
@@ -305,7 +306,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                           ],
                           color: constants.inputBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: constants.whiteBackground),
+                          border: Border.all(color: Colors.white),
                         ),
                         width: 46,
                         height: 46,

@@ -15,7 +15,8 @@ class AutenticationManager extends GetxController {
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _auth.signInWithCredential(credential);
         // ignore: avoid_print
-        print("------------------- verfication completed");
+        print(
+            "------------------- verfication completed   $credential  $verificationId ");
       },
       verificationFailed: (FirebaseAuthException e) {
         if (e.code == 'invalid-phone-number') {}
@@ -25,20 +26,22 @@ class AutenticationManager extends GetxController {
       codeSent: (String verificationId, int? resendToken) {
         this.verificationId.value = verificationId;
         // ignore: avoid_print
-        print("------------------- co/desent");
+        print("------------------- co/desent  $verificationId ");
         Get.offAll(const AdminOTPScreen());
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         // ignore: avoid_print
-        print("------------------- codeAutoRetrievalTimeout");
 
         this.verificationId.value = verificationId;
+        print("------------------- codeAutoRetrievalTimeout $verificationId ");
       },
     );
   }
 
   Future<bool> verifyOTP(String otp) async {
     print("xxxxxxxxxxxxxxxxxx $otp");
+
+    print("0000000000000000000 ${verificationId.value}");
     var credential = await _auth.signInWithCredential(
         PhoneAuthProvider.credential(
             verificationId: verificationId.value, smsCode: otp));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:friendly_faces/constants/constants.dart';
 import 'package:friendly_faces/controller/signup_controller.dart';
 import 'package:friendly_faces/widgets/custom_button.dart';
@@ -22,126 +23,130 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
+        width: Get.width,
+        height: Get.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [constants.centerLeftColor, constants.centerRightColor],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight),
         ),
-        child: SingleChildScrollView(
-          child: Column(children: [
-            SizedBox(
-              width: Get.width,
-              height: Get.height / 4,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Friendly Faces",
-                        style: TextStyle(
-                            fontSize: 41,
-                            color: constants.whiteBackground,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        "Friend is just around the corner",
-                        style: TextStyle(
-                            fontSize: 15, color: constants.whiteBackground),
-                      )
-                    ]),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: constants.whiteBackground,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
-                    ),
-                  ),
-                  height: Get.height * 3 / 4,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 30.0, right: 30.0, top: 100.0),
+        child: Column(children: [
+          SizedBox(
+            width: Get.width,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30.0, left: 30.0),
+              child: SizedBox(
+                width: Get.width,
+                height: Get.height / 2,
+                child: Stack(children: [
+                  Positioned(
+                    left: 0,
+                    top: 50,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            "Mobile No.",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        InputWidget(
-                          constants: constants,
-                          controller: phone,
-                          hintText: '',
-                          isObscrue: false,
-                        ),
-                        const SizedBox(
-                          height: 40.0,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: Text(
-                            "Password",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        // InputWidget(
-                        //   constants: constants,
-                        //   // controller: authController.otp,
-                        //   hintText: '',
-                        //   isObscrue: true,
-                        // ),
-                        const SizedBox(
-                          height: 40.0,
+                        Text(
+                          "Friendly Faces",
+                          style: TextStyle(
+                              fontSize: 41,
+                              color: constants.whiteBackground,
+                              fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "Forgot Password?",
+                          "Friend is just around the corner",
                           style: TextStyle(
-                              fontSize: 15, color: constants.centerLeftColor),
+                              fontSize: 15, color: constants.whiteBackground),
                         ),
-                        SizedBox(
-                          height: Get.height * 0.2,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomButton(
-                              constants: constants,
-                              height: Get.height * 0.06,
-                              onTap: () {
-                                authController
-                                    .phoneAuthentication(phone.text.trim());
-                              },
-                              title: 'SignUp',
-                              width: Get.width * 0.39,
-                            ),
-                            CustomButton(
-                              constants: constants,
-                              height: Get.height * 0.06,
-                              onTap: () {},
-                              title: 'Login',
-                              width: Get.width * 0.39,
-                            ),
-                          ],
-                        )
                       ],
                     ),
-                  )),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: SizedBox(
+                      height: 300,
+                      child: Expanded(
+                        child: Image.asset('assets/images/login_img.png'),
+                      ),
+                    ),
+                  )
+                ]),
+              ),
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
+      bottomSheet: Wrap(children: [
+        Container(
+          decoration: BoxDecoration(
+            color: constants.whiteBackground,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25.0),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 30.0, right: 30.0, top: 30.0, bottom: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    "Enter your \nmobile number",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15.0),
+                  child: Text(
+                    "Will send a OTP on your number",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+                InputWidget(
+                  constants: constants,
+                  controller: phone,
+                  hintText: '9876543210',
+                  isObscrue: false,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 15.0),
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                        fontSize: 12, color: constants.centerLeftColor),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomButton(
+                      constants: constants,
+                      height: Get.height * 0.06,
+                      onTap: () {
+                        authController.phoneAuthentication(phone.text.trim());
+                      },
+                      title: 'SignUp',
+                      width: Get.width * 0.39,
+                    ),
+                    CustomButton(
+                      constants: constants,
+                      height: Get.height * 0.06,
+                      onTap: () {},
+                      title: 'Login',
+                      width: Get.width * 0.39,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }

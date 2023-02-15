@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/auth",
+      initialRoute: "/otpPage",
+      theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(

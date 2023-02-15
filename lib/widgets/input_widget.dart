@@ -6,13 +6,13 @@ class InputWidget extends StatelessWidget {
   const InputWidget(
       {Key? key,
       required this.constants,
-       required this.hintText,
+      required this.hintText,
       required this.controller,
       required this.isObscrue})
       : super(key: key);
 
   final Constants constants;
-   final String hintText;
+  final String hintText;
   final TextEditingController controller;
   final bool isObscrue;
 
@@ -22,26 +22,9 @@ class InputWidget extends StatelessWidget {
       width: double.infinity,
       height: Get.height / 17,
       decoration: BoxDecoration(
-        boxShadow: [
-          const BoxShadow(
-            color: Color.fromARGB(255, 199, 207, 205),
-            offset: Offset(
-              0.0,
-              2.0,
-            ),
-            blurRadius: 10.0,
-            spreadRadius: 1.0,
-          ), //BoxShadow
-          BoxShadow(
-            color: constants.whiteBackground,
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 0.0,
-            spreadRadius: 0.0,
-          ), //BoxSh
-        ],
         color: constants.inputBackgroundColor,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: constants.whiteBackground),
+        border: Border.all(color: Colors.black.withOpacity(0.46)),
       ),
       child: TextFormField(
         controller: controller,
