@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 class AdminOTPScreen extends StatefulWidget {
   const AdminOTPScreen({super.key});
-
   @override
   State<AdminOTPScreen> createState() => _AdminOTPScreenState();
 }
@@ -345,11 +344,10 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                       backgroundColor: const Color.fromARGB(255, 234, 238, 243),
                     ),
                     onPressed: () {
-                      // ignore: avoid_print
                       var otp =
                           "${_otp["pin1"]?.text}${_otp["pin2"]?.text}${_otp["pin3"]?.text}${_otp["pin4"]?.text}${_otp["pin5"]?.text}${_otp["pin6"]?.text}"
                               .trim();
-                      print(otp);
+                      // print(otp);
                       otpController.verifyOtp(otp);
                     },
                     child: const Padding(
