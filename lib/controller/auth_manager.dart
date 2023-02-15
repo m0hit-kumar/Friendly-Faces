@@ -1,5 +1,4 @@
 import "package:firebase_auth/firebase_auth.dart";
-import "package:friendly_faces/pages/auth/dashboard/homepage.dart";
 import "package:friendly_faces/pages/auth/otp_page.dart";
 import "package:get/get.dart";
 

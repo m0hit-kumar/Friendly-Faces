@@ -14,6 +14,8 @@ class _CreateProfileState extends State<CreateProfile> {
   TextEditingController passwordController = TextEditingController();
 
   final constants = Get.put(Constants());
+
+  String dropdownValue = 'Option 1';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,35 +190,43 @@ class _CreateProfileState extends State<CreateProfile> {
                   ),
                 ),
                 Container(
+                  height: Get.height / 17,
+                  padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0xffa3b1c6), // darker color
-                      ),
-                      BoxShadow(
-                        color: Color(0xffe0e5ec), // background color
-                        spreadRadius: -12.0,
-                        blurRadius: 12.0,
-                      ),
-                    ],
                     color: constants.inputBackgroundColor,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: constants.whiteBackground),
+                    border: Border.all(color: Colors.black.withOpacity(0.46)),
                   ),
-                  // width: 60,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: " ",
-                        border: InputBorder.none,
-                      ),
-                      autofocus: false,
-                      style: const TextStyle(
-                          fontSize: 18, color: Color.fromARGB(255, 19, 19, 19)),
-                      textAlign: TextAlign.left,
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                    items: <String>[
+                      'Option 1',
+                      'Option 2',
+                      'Option 3',
+                      'Option 4'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
                     ),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    isExpanded: true,
+                    underline: Container(
+                      height: 0,
+                      color: Colors.transparent,
+                    ),
+                    dropdownColor: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
                 const SizedBox(height: 100.0),

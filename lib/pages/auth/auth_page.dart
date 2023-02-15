@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:friendly_faces/constants/constants.dart';
 import 'package:friendly_faces/controller/signup_controller.dart';
 import 'package:friendly_faces/widgets/custom_button.dart';
