@@ -118,14 +118,18 @@ class _AuthPageState extends State<AuthPage> {
                         CustomButton(
                           constants: constants,
                           height: Get.height * 0.06,
-                          onTap: () {},
+                          onTap: () {
+                            print("hiii");
+                          },
                           title: 'SignUp',
                           width: Get.width * 0.39,
                         ),
                         CustomButton(
                           constants: constants,
                           height: Get.height * 0.06,
-                          onTap: () {},
+                          onTap: () {
+                            print("bye");
+                          },
                           title: 'Login',
                           width: Get.width * 0.39,
                         ),
