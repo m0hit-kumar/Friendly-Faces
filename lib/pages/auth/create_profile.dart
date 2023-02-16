@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:get/get.dart';
 
 class CreateProfile extends StatefulWidget {
@@ -14,8 +15,13 @@ class _CreateProfileState extends State<CreateProfile> {
   TextEditingController passwordController = TextEditingController();
 
   final constants = Get.put(Constants());
+  final database = Get.put(DatabaseController());
+  late DateTime dob;
+  String dobHolder = "1/01/2001";
+  final _name = TextEditingController();
+  final _email = TextEditingController();
 
-  String dropdownValue = 'Option 1';
+  String proffesion = 'IT Proffesional';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +41,7 @@ class _CreateProfileState extends State<CreateProfile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Verification Page",
+                  "Create Profile Page",
                   style: TextStyle(
                       fontSize: 30,
                       color: constants.whiteBackground,
@@ -75,8 +81,9 @@ class _CreateProfileState extends State<CreateProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     child: TextFormField(
+                      controller: _name,
                       decoration: const InputDecoration(
-                        hintText: " ",
+                        hintText: "Tony Stark",
                         border: InputBorder.none,
                       ),
                       autofocus: false,
@@ -120,8 +127,9 @@ class _CreateProfileState extends State<CreateProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     child: TextFormField(
+                      controller: _email,
                       decoration: const InputDecoration(
-                        hintText: " ",
+                        hintText: "friendlyfaces@gmail.com",
                         border: InputBorder.none,
                       ),
                       autofocus: false,
@@ -144,35 +152,52 @@ class _CreateProfileState extends State<CreateProfile> {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0xffa3b1c6), // darker color
+                InkWell(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(), //get today's date
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101));
+                    if (pickedDate != null) {
+                      // print(pickedDate);
+                      setState(() {
+                        dob = pickedDate;
+                        dobHolder = "${dob.day}/${dob.month}/${dob.year}";
+                      });
+                    } else {
+                      // ignore: avoid_print
+                      print("Date is not selected");
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0xffa3b1c6),
+                        ),
+                        BoxShadow(
+                          color: Color(0xffe0e5ec),
+                          spreadRadius: -12.0,
+                          blurRadius: 12.0,
+                        ),
+                      ],
+                      color: constants.inputBackgroundColor,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: constants.whiteBackground),
+                    ),
+                    width: double.infinity,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, top: 15.0, bottom: 15),
+                      child: Text(
+                        dobHolder,
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromARGB(255, 19, 19, 19)),
+                        textAlign: TextAlign.left,
                       ),
-                      BoxShadow(
-                        color: Color(0xffe0e5ec), // background color
-                        spreadRadius: -12.0,
-                        blurRadius: 12.0,
-                      ),
-                    ],
-                    color: constants.inputBackgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: constants.whiteBackground),
-                  ),
-                  // width: 60,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: " ",
-                        border: InputBorder.none,
-                      ),
-                      autofocus: false,
-                      style: const TextStyle(
-                          fontSize: 18, color: Color.fromARGB(255, 19, 19, 19)),
-                      textAlign: TextAlign.left,
                     ),
                   ),
                 ),
@@ -198,17 +223,17 @@ class _CreateProfileState extends State<CreateProfile> {
                     border: Border.all(color: Colors.black.withOpacity(0.46)),
                   ),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: proffesion,
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownValue = newValue!;
+                        proffesion = newValue!;
                       });
                     },
                     items: <String>[
-                      'Option 1',
-                      'Option 2',
-                      'Option 3',
-                      'Option 4'
+                      'IT Proffesional',
+                      'Traveller',
+                      'Student',
+                      'Other'
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -234,10 +259,11 @@ class _CreateProfileState extends State<CreateProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.back(canPop: true);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
-                          // color: constants.whiteBackground,
                           border: Border.all(width: 2, color: Colors.white),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
@@ -254,17 +280,23 @@ class _CreateProfileState extends State<CreateProfile> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        // ignore: avoid_print
+                        print(
+                            "0000000000000 ${_email.text} ${_name.text} $dob");
+
+                        database.createProfile(
+                            _name.text, _email.text, dob, proffesion);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           boxShadow: const [
                             BoxShadow(
-                                color: Color.fromARGB(255, 53, 52, 52), //New
+                                color: Color.fromARGB(255, 53, 52, 52),
                                 blurRadius: 2.0,
                                 spreadRadius: 0.3)
                           ],
                           color: constants.whiteBackground,
-                          // border: Border.all(width: 2, color: Colors.white),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
                           ),
@@ -272,7 +304,7 @@ class _CreateProfileState extends State<CreateProfile> {
                         width: Get.width / 3,
                         height: 50,
                         child: const Center(
-                          child: Text("Cancel",
+                          child: Text("Submit",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600)),

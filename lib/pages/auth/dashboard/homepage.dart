@@ -30,17 +30,25 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(18.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(Icons.menu),
-                  Text(
+                children: [
+                  const Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                  const Text(
                     "Friendly Faces",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w700),
                   ),
-                  CircleAvatar(
-                    radius: 20,
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("/createProfile");
+                    },
+                    child: const CircleAvatar(
+                      radius: 20,
+                    ),
                   )
                 ],
               ),
