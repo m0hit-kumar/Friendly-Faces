@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
 import 'package:friendly_faces/pages/auth/dashboard/homepage.dart';
-import 'package:friendly_faces/pages/auth/dashboard/trail.dart';
+import 'package:friendly_faces/pages/auth/dashboard/find_connection.dart';
 import 'package:friendly_faces/pages/auth/otp_page.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
           page: () => const CreateProfile(),
         ),
         GetPage(
-          name: "/try",
-          page: () => const Trial(),
+          name: "/findConnection",
+          page: () => const FindConnection(),
         ),
       ],
     );
