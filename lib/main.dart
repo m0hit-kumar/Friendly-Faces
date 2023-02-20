@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
 import 'package:friendly_faces/pages/auth/dashboard/homepage.dart';
+import 'package:friendly_faces/pages/auth/dashboard/trail.dart';
 import 'package:friendly_faces/pages/auth/otp_page.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -13,7 +14,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.android,
   );
-
   runApp(const MyApp());
 }
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/auth",
+      initialRoute: "/homePage",
       theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -42,6 +42,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/createProfile",
           page: () => const CreateProfile(),
+        ),
+        GetPage(
+          name: "/try",
+          page: () => const Trial(),
         ),
       ],
     );
