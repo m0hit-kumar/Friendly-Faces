@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,5 +27,34 @@ class LocationService extends GetxController {
     }
     // print("0000000000000 $data");
     return data;
+  }
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    LocationPermission permission;
+
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    }
+
+    do {
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          throw Exception('Location permissions are denied');
+        }
+      }
+    } while (permission == LocationPermission.denied);
+
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    var loc = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    return loc;
   }
 }

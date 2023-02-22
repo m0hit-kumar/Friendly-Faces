@@ -156,7 +156,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(), //get today's date
+                        initialDate: DateTime.now(),
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2101));
                     if (pickedDate != null) {

@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 
 class LocationSearchDialog extends StatefulWidget {
   final TextEditingController controller;
-  const LocationSearchDialog({super.key, required this.controller});
+  final Function(dynamic) onItemSelected;
+  const LocationSearchDialog(
+      {super.key, required this.controller, required this.onItemSelected});
 
   @override
   State<LocationSearchDialog> createState() => _LocationSearchDialogState();
@@ -14,6 +16,8 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
   final location = Get.put(LocationService());
 
   List<dynamic> _placeList = [];
+  String hintText = "Search Location";
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +41,22 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Get.height / 2,
-      // color: Colors.yellow,
       child: Column(
         children: [
-          TextFormField(
-            controller: widget.controller,
-            decoration: const InputDecoration(hintText: "Search"),
+          Container(
+            // width: Get.width,
+            padding: EdgeInsets.only(left: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: TextFormField(
+              controller: widget.controller,
+              decoration: InputDecoration(
+                suffixIcon: Icon(Icons.search),
+                hintText: hintText,
+              ),
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -56,6 +70,10 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
                 return Container(
                   color: Colors.white,
                   child: ListTile(
+                    onTap: () {
+                      print("eeeeeeeeeeeeeeeee ${e.runtimeType}");
+                      widget.onItemSelected(e); //
+                    },
                     title: Text("$placeName"),
                   ),
                 );
