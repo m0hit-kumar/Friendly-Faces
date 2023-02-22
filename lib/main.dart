@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
-import 'package:friendly_faces/pages/dashboard/RequestPage.dart';
+import 'package:friendly_faces/pages/dashboard/request_page.dart';
 import 'package:friendly_faces/pages/dashboard/Signup.dart';
 import 'package:friendly_faces/pages/dashboard/ConnectionsPage.dart';
 import 'package:friendly_faces/pages/dashboard/home.dart';
