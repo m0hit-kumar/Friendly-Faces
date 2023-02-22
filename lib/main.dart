@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
+import 'package:friendly_faces/pages/dashboard/RequestPage.dart';
 import 'package:friendly_faces/pages/dashboard/Signup.dart';
 import 'package:friendly_faces/pages/dashboard/ConnectionsPage.dart';
 import 'package:friendly_faces/pages/dashboard/home.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/chat",
+      initialRoute: "/requests",
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/home', page: () => const AuthPage()),
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/practice', page: () => const Practice()),
         GetPage(name: '/home1', page: () => const HomePage()),
         GetPage(name: '/chat', page: () => const Chat()),
+        GetPage(name: '/requests', page: () => const Requests()),
       ],
     );
   }

@@ -1,86 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:friendly_faces/constants/constants.dart';
+import 'package:get/get.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final constants = Get.put(Constants());
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    final Pink =Color(0xFFF8E4EA);
-    final darkPink=Color(0xFFF1286B);
-    final maroon=Color(0xFFB72C41);
-    final babyPink=Color(0xFFFB5E9A);
-    final cream=Color(0xFFDE9E3D);
-
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(64, 140, 125, 1),
-      appBar: AppBar(
-          backgroundColor: Color.fromRGBO(64, 140, 125, 1),
-          title: Text('Nirajan Singh'),
-          // leading: const Icon(
-          //   Icons.menu,
-          // ),
-
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.account_circle,
-                color: Colors.white,
-              ),
-            )
-          ]),
-      drawer: Drawer(
-        backgroundColor: const Color.fromRGBO(64, 140, 125, 1),
-        // ignore: prefer_const_literals_to_create_immutables
-        child: ListView(children: [
-          // ignore: prefer_const_constructors
-          DrawerHeader(
-              child: const DrawerHeader(
-                  child: Text(
-            "Friendly Faces",
-            style: TextStyle(color: Colors.white, fontSize: 50),
-          ))),
-          const ListTile(
-            title: Text("Home",
-                style: TextStyle(color: Colors.white, fontSize: 20)),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          width: Get.width,
+          height: Get.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [constants.centerLeftColor, constants.centerRightColor],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight),
           ),
-          const ListTile(
-              title: Text("Connection",
-                  style: TextStyle(color: Colors.white, fontSize: 20))),
-          const ListTile(
-              title: Text("Settings",
-                  style: TextStyle(color: Colors.white, fontSize: 20)))
-        ]),
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 550,
-            child: Center(
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/project-icon.jpg',
-                  height: 250,
-                  width: 250,
-                  fit: BoxFit.cover,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                    const Text(
+                      "   Friendly Faces",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed("/createProfile");
+                      },
+                      child: const CircleAvatar(
+                        radius: 20,
+                      ),
+                    )
+                  ],
                 ),
               ),
-            ),
-          ),
-          
-          
-          Container(
-            child: const SizedBox(
-              child: Text(
-                "Friendly Faces",
-                style: TextStyle(color: Colors.white, fontSize: 26),
+              const Expanded(child: SizedBox()),
+              CircleAvatar(
+                backgroundColor: const Color(0xFF32726C),
+                radius: Get.width / 3,
+                backgroundImage: const AssetImage(
+                  'assets/images/project-icon.jpg',
+                ),
+                child: CircleAvatar(
+                    backgroundColor: const Color(0xFF32726C).withOpacity(0.5),
+                    radius: Get.width / 3,
+                    child: const Center(
+                      child: Icon(
+                        Icons.add,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    )),
               ),
-            ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "Friendly Faces",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700),
+              ),
+              const Text(
+                "Friend is just around the corner",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              const Expanded(child: SizedBox()),
+            ],
           ),
-          const Text("Friend is just around the corner",
-              style: TextStyle(color: Colors.white, fontSize: 16))
-        ],
+        ),
       ),
     );
   }
