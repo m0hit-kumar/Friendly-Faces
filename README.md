@@ -1,8 +1,23 @@
 # FriendlyFaces
+
+
 ## Problem statement 
 Individuals relocating to a new city face challenges in finding accomodation while finding new friends.
 - Finding a suitable and affordable place to live
 - Making new friends and building a social network
+
+## Table of content
+- [Problem Statement](#problem-statement)
+- [Table of Content](#table-of-content)
+- [Stats](#stats)
+- [Use Cases](#use-cases)
+- [WorkFLow](#workflow)
+- [Class Diagram](#class-diagram)
+- [ER Diagram](#er-diagram)
+- [Architecture](#architecture)
+- [Value Added](#value-added)
+- [Tech stack](#tech-stack)
+- [How to contribute](#steps-to-replicate)
 
 ## Stats
 ![4](https://user-images.githubusercontent.com/84622044/220990216-334b19ef-7ee9-4b47-940d-afbbcbb8bf60.png)
@@ -69,8 +84,17 @@ A new Flutter project.
 ![FriendlyFaces](https://user-images.githubusercontent.com/84622044/220984713-45d82cca-3232-41ce-9cd7-0e26852552c2.png)
 
 
+# How to Contribute...
 
-## Getting Started
+## Steps to replicate
+
+- Give a star to the repo
+- Make a copy of the repo in your local system.
+       git clone https://github.com/m0hit-kumar/Friendly-Faces
+     
+- Make changes in the project
+- Create a pull request(add the details about the file changed and features added).     
+      
 
 This project is a starting point for a Flutter application.
 
