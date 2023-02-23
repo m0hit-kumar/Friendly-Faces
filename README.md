@@ -17,7 +17,9 @@ Individuals relocating to a new city face challenges in finding accomodation whi
 - [Architecture](#architecture)
 - [Value Added](#value-added)
 - [Tech stack](#tech-stack)
+- [Designs](#designs)
 - [How to contribute](#steps-to-replicate)
+
 
 ## Stats
 ![4](https://user-images.githubusercontent.com/84622044/220990216-334b19ef-7ee9-4b47-940d-afbbcbb8bf60.png)
@@ -77,7 +79,7 @@ Individuals relocating to a new city face challenges in finding accomodation whi
        - ChatGPT
 
 
-A new Flutter project.
+## Designs
 
 ![Crop](https://user-images.githubusercontent.com/84622044/220988153-1fb3fe6e-8043-4255-b047-8de8481252f5.png)
 
@@ -96,13 +98,3 @@ A new Flutter project.
 - Create a pull request(add the details about the file changed and features added).     
       
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
