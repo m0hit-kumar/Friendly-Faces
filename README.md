@@ -21,6 +21,39 @@ Individuals relocating to a new city face challenges in finding accomodation whi
 
 ![High level artchiture 1](https://user-images.githubusercontent.com/84622044/220991228-d355b32e-f895-4072-af21-009f126cd922.png)
 
+## Value Added
+
+## Iteration 1 - Authentication and Profile:
+- User data is protected with secure authentication.
+- Personalized experience is enabled through user profiles.
+- Basic information and preferences help with matching housing options.
+- User data collected in profiles improves overall user experience.
+
+## Iteration 2 - Connecting with Others:
+- Location-based suggestions make it easier to connect with nearby people.
+- Social network expansion is possible in new city.
+- Meeting new people can lead to new opportunities and experiences.
+- Connecting with others can help users feel more at home.
+
+## Iteration 3 - Customized Search:
+- Personalized housing options save time and effort.
+- Filters ensure matching with specific needs.
+- Better matching leads to higher satisfaction.
+- Improved experience leads to increased loyalty.
+
+## Iteration 4 - Chat Section:
+- Real-time communication for building relationships.
+- Chat feature eliminates need for multiple platforms.
+- Faster communication for quicker issue resolution.
+- Better communication leads to smoother housing transactions.
+
+## Tech stack
+            Flutter
+            Firebase
+            Figma
+            Github
+            Midjourney
+            ChatGPT
 
 
 A new Flutter project.
