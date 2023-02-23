@@ -11,7 +11,7 @@ Individuals relocating to a new city face challenges in finding accomodation whi
 - [Table of Content](#table-of-content)
 - [Stats](#stats)
 - [Use Cases](#use-cases)
-- [WorkFLow](#workflow)
+- [WorkFLow](#work-flow)
 - [Class Diagram](#class-diagram)
 - [ER Diagram](#er-diagram)
 - [Architecture](#architecture)
