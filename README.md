@@ -15,11 +15,17 @@ Individuals relocating to a new city face challenges in finding accomodation whi
 2. Providing travelers and individuals moving to new cities with the opportunity to make connections before looking for a place to stay.
 
 
+## Work Flow
+![High level artchiture 1](https://user-images.githubusercontent.com/84622044/220991228-d355b32e-f895-4072-af21-009f126cd922.png)
+
+## Class Diagram
 ![Class Diagram](https://user-images.githubusercontent.com/84622044/220990882-1192be64-3709-4de8-a649-df6d156c5175.png)
 
+## ER Diagram
 ![ER diagram](https://user-images.githubusercontent.com/84622044/220991006-2f54c967-f477-4576-98c7-16b354b80703.png)
 
-![High level artchiture 1](https://user-images.githubusercontent.com/84622044/220991228-d355b32e-f895-4072-af21-009f126cd922.png)
+## Architecture
+![Find a friend](https://user-images.githubusercontent.com/84622044/220996025-987bc83e-f6ff-436a-aa87-fbd281abb33f.png)
 
 ## Value Added
 
@@ -48,12 +54,12 @@ Individuals relocating to a new city face challenges in finding accomodation whi
 - Better communication leads to smoother housing transactions.
 
 ## Tech stack
-            Flutter
-            Firebase
-            Figma
-            Github
-            Midjourney
-            ChatGPT
+       - Flutter
+       - Firebase
+       - Figma
+       - Github
+       - Midjourney
+       - ChatGPT
 
 
 A new Flutter project.
