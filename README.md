@@ -1,6 +1,12 @@
-# friendly_faces
+# FriendlyFaces
+
 
 A new Flutter project.
+
+![Crop](https://user-images.githubusercontent.com/84622044/220988153-1fb3fe6e-8043-4255-b047-8de8481252f5.png)
+
+![FriendlyFaces](https://user-images.githubusercontent.com/84622044/220984713-45d82cca-3232-41ce-9cd7-0e26852552c2.png)
+
 
 ## Getting Started
 
