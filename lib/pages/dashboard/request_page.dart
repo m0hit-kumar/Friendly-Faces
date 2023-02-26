@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:friendly_faces/controller/database_controller.dart';
+import 'package:get/get.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({super.key});
@@ -8,118 +11,156 @@ class RequestPage extends StatefulWidget {
 }
 
 class _RequestPageState extends State<RequestPage> {
+  final database = Get.put(DatabaseController());
+  final _auth = FirebaseAuth.instance;
+  List<String> requests = [];
+  late String currentUser;
+  void getRequest() async {
+    final user = _auth.currentUser?.uid;
+    print("000000000000000000000 user");
+    var data = await database.getRequests(user!);
+    print("00000000000000000000000000000 data $data");
+
+    setState(() {
+      requests = data;
+      currentUser = user;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getRequest();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color(0xFF32726C),
-          body: SingleChildScrollView(
-              child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  children: const [
-                    Icon(
+        backgroundColor: const Color(0xFF32726C),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
                       Icons.arrow_back_ios_rounded,
                       color: Colors.white,
+                      size: 18,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 80),
-                      child: Center(
-                        child: Text(
-                          " RequestPage",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white),
-                        ),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                  const Text(
+                    "Requests",
+                    style: TextStyle(
+                        // fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("homePage");
+                    },
+                    child: const Icon(
+                      Icons.home,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              height: 10,
+              color: Colors.white,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: requests.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(12),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(
-                height: 10,
-                color: Colors.white,
-              ),
-              SizedBox(
-                height: 640,
-                child: ListView.builder(
-                  itemCount: 6,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Container(
-                      //color: Colors.white,
-                      decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 3,
                         color: Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                        border: Border.all(
-                          width: 3,
-                          color: Colors.white,
-                          style: BorderStyle.solid,
-                        ),
+                        style: BorderStyle.solid,
                       ),
-                      height: 61,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          // ignore: prefer_const_literals_to_create_immutables
-                          children: [
-                            const Icon(
-                              Icons.account_circle_rounded,
-                              color: Colors.grey,
-                              size: 38,
-                            ),
+                    ),
+                    height: 61,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const Icon(
+                            Icons.account_circle_rounded,
+                            color: Colors.grey,
+                            size: 38,
+                          ),
 
-                            Row(
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Container(
-                                  child: Text(
-                                    "User " "$index",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                          Row(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              Container(
+                                child: Text(
+                                  "User " "$index",
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ],
-                            ),
-                            //ignore: prefer_const_constructors
+                              ),
+                            ],
+                          ),
+                          //ignore: prefer_const_constructors
 
-                            const Padding(
-                              padding: EdgeInsets.only(left: 80),
-                              child: Icon(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 80),
+                            child: InkWell(
+                              onTap: () {
+                                database.updateChattingWith(
+                                    currentUser, requests[index]);
+                              },
+                              child: const Icon(
                                 Icons.done_rounded,
                                 color: Color(0xFF32726C),
                                 size: 27,
                               ),
                             ),
+                          ),
 
-                            const VerticalDivider(
-                              thickness: 2,
-                              //indent: 20,
-                              //endIndent: 0,
-                              color: Color.fromARGB(255, 7, 45, 76),
-                            ),
+                          const VerticalDivider(
+                            thickness: 2,
+                            //indent: 20,
+                            //endIndent: 0,
+                            color: Color.fromARGB(255, 7, 45, 76),
+                          ),
 
-                            const Icon(
-                              Icons.close,
-                              color: Colors.red,
-                              size: 20,
-                            ),
-                          ],
-                        ),
+                          const Icon(
+                            Icons.close,
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              )
-            ],
-          ))),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

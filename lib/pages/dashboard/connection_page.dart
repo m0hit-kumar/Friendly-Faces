@@ -68,10 +68,15 @@ class _ConnectionPageState extends State<ConnectionPage> {
                           fontSize: 18,
                           color: Colors.white),
                     ),
-                    const Icon(
-                      Icons.notifications,
-                      color: Colors.white,
-                      size: 18,
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed("requestPage");
+                      },
+                      child: const Icon(
+                        Icons.notifications,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ),
                   ],
                 ),

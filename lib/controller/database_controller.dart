@@ -67,20 +67,71 @@ class DatabaseController extends ConcreteGetxController {
     DocumentSnapshot documentSnapshot = await documentReference.get();
 
     if (documentSnapshot.exists) {
-      final data = documentSnapshot.data();
+      Map<String, dynamic>? data =
+          documentSnapshot.data() as Map<String, dynamic>?;
 
       if (data != null) {
         print("000000000000000 Document data: $data");
+        result = (data["requests"] as List<dynamic>).cast<String>();
         return result;
       } else {
         print("00000000000000 Data request downst exist or is null");
         return result;
       }
-
-      return result;
     } else {
       print("Document does not exist");
       return result;
+    }
+  }
+
+  Future<String> createDocument() async {
+    try {
+      DocumentReference documentReference = users.doc();
+      await documentReference.set({
+        'from': 'FriendlyFaces',
+        'msg':
+            'Hello Friend, thank you for using our platform to connect with potential hosts. We hope you find the perfect accommodation for your needs. If you have any questions or concerns, feel free to reach out to our support team.',
+        'time': DateTime.now(),
+      });
+      print(
+          '0000000000000000000000 Document created with ID: ${documentReference.id}');
+      return documentReference.id;
+    } catch (e) {
+      print('00000000000000000 Error creating document: $e');
+      return "";
+    }
+  }
+
+  Future<void> updateChattingWith(
+      String currentUserId, String otherUserId) async {
+    Future<String> chatRoom = createDocument();
+    // Update the current user's document
+    DocumentReference currentUserRef = users.doc(currentUserId);
+    DocumentSnapshot currentUserSnapshot = await currentUserRef.get();
+    if (currentUserSnapshot.exists) {
+      Map<String, dynamic>? data =
+          currentUserSnapshot.data() as Map<String, dynamic>?;
+      var requestList = data!["requests"];
+      var chattingWith = data["chattingWith"];
+      chattingWith.add(chatRoom);
+
+      requestList.remove(otherUserId);
+      await currentUserRef
+          .update({'requests': requestList, 'chattingWith': chattingWith});
+    }
+
+    // Update the other user's document
+    DocumentReference otherUserRef = users.doc(otherUserId);
+    DocumentSnapshot otherUserSnapshot = await otherUserRef.get();
+    if (otherUserSnapshot.exists) {
+      Map<String, dynamic>? data =
+          otherUserSnapshot.data() as Map<String, dynamic>?;
+      var requestList = data!["requests"];
+      var chattingWith = data["chattingWith"];
+      chattingWith.add(chatRoom);
+      requestList.remove(currentUserId);
+      await currentUserRef
+          .update({'requests': requestList, 'chattingWith': chattingWith});
     }
   }
 
