@@ -16,6 +16,9 @@ class _ConnectionPageState extends State<ConnectionPage> {
 
   void findConnection() async {
     var data = await database.findConnections();
+
+    print("00000000000000000000000000000 data $data");
+
     setState(() {
       connections = data;
     });
@@ -23,11 +26,9 @@ class _ConnectionPageState extends State<ConnectionPage> {
 
   void getuser() async {
     var userData = await database.getUser();
-
     setState(() {
       userProfile = userData;
     });
-
     print("000000000000000)))) $userProfile");
   }
 
@@ -35,6 +36,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   void initState() {
     super.initState();
     getuser();
+    findConnection();
   }
 
   @override
@@ -88,7 +90,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                           crossAxisCount: 2,
                           children: List.generate(
                               connections.length,
-                              (Index) => Padding(
+                              (index) => Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Container(
                                       //color: Colors.white,
@@ -114,7 +116,10 @@ class _ConnectionPageState extends State<ConnectionPage> {
                                             ),
                                           ),
                                           ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              database.sendRequest(
+                                                  connections[index]);
+                                            },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   const Color(0xFF32726C),

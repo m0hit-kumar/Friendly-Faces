@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:friendly_faces/controller/loctemp.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
 import 'package:friendly_faces/pages/dashboard/connection_page.dart';
 import 'package:friendly_faces/pages/dashboard/homepage.dart';
 import 'package:friendly_faces/pages/dashboard/find_connection.dart';
+import 'package:friendly_faces/pages/dashboard/mylocpage.dart';
+import 'package:friendly_faces/pages/dashboard/request_page.dart';
 import 'package:friendly_faces/pages/dashboard/trial.dart';
 import 'package:friendly_faces/pages/auth/otp_page.dart';
 import 'package:get/get.dart';
@@ -24,6 +27,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LocationController());
+
     return GetMaterialApp(
       initialRoute: "/auth",
       theme: ThemeData(canvasColor: Colors.transparent),
@@ -56,6 +61,14 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/connectionPage",
           page: () => const ConnectionPage(),
+        ),
+        GetPage(
+          name: "/requestPage",
+          page: () => const RequestPage(),
+        ),
+        GetPage(
+          name: "/mylocation",
+          page: () => const MapScreen(),
         ),
       ],
     );

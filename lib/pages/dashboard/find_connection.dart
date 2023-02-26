@@ -77,11 +77,15 @@ class _FindConnectionState extends State<FindConnection> {
                         fontSize: 18,
                         color: Colors.white),
                   ),
-                  const Icon(
-                    Icons.notifications,
-                    color: Colors.white,
-                    size: 18,
-                  ),
+                  IconButton(
+                      onPressed: () {
+                        Get.toNamed("requestPage");
+                      },
+                      icon: const Icon(
+                        Icons.notifications,
+                        color: Colors.white,
+                        size: 18,
+                      )),
                 ],
               ),
               Container(

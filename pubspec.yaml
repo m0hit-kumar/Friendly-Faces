@@ -43,6 +43,10 @@ dependencies:
   geolocator: ^9.0.2
   latlong2: ^0.8.1
   fluttertoast: ^8.2.1
+  flutter_google_places: ^0.3.0
+  flutter_typeahead: ^4.3.6
+  google_maps_flutter: ^2.2.4
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:

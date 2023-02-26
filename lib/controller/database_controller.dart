@@ -46,6 +46,44 @@ class DatabaseController extends ConcreteGetxController {
             print("Failed to add/update setLocationAndPreference: $error"));
   }
 
+  Future<void> sendRequest(userid) async {
+    final user = _auth.currentUser?.uid;
+    List<String> oldRequestList = [];
+    var data = await getRequests(userid);
+    oldRequestList = data;
+    oldRequestList.add(user!);
+    return users
+        .doc(userid)
+        .update({"requests": oldRequestList})
+        // ignore: avoid_print
+        .then((value) => print("LocationAndPreference Set"))
+        .catchError((error) =>
+            print("Failed to add/update setLocationAndPreference: $error"));
+  }
+
+  Future<List<String>> getRequests(String userid) async {
+    DocumentReference documentReference = users.doc(userid);
+    List<String> result = [];
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+
+    if (documentSnapshot.exists) {
+      final data = documentSnapshot.data();
+
+      if (data != null) {
+        print("000000000000000 Document data: $data");
+        return result;
+      } else {
+        print("00000000000000 Data request downst exist or is null");
+        return result;
+      }
+
+      return result;
+    } else {
+      print("Document does not exist");
+      return result;
+    }
+  }
+
   Future<Map<String, dynamic>> getUser() async {
     final user = _auth.currentUser?.uid;
 
@@ -70,6 +108,7 @@ class DatabaseController extends ConcreteGetxController {
   }
 
   Future<List<String>> findConnections() async {
+    final user = _auth.currentUser?.uid;
     List<String> result = [];
 
     QuerySnapshot querySnapshot =
@@ -78,7 +117,9 @@ class DatabaseController extends ConcreteGetxController {
     for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
       result.add(documentSnapshot.id);
     }
+    result.removeWhere((item) => item == user);
 
+    print("000000000000000 result $result");
     return result;
   }
 }
