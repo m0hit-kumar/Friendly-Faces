@@ -9,6 +9,9 @@ class DatabaseController extends ConcreteGetxController {
   final _auth = FirebaseAuth.instance;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference chatRooms =
+      FirebaseFirestore.instance.collection('chatRoom');
+
   Future<void> createProfile(
       String name, String email, DateTime dob, String proffesion) async {
     final user = _auth.currentUser?.uid;
@@ -84,9 +87,11 @@ class DatabaseController extends ConcreteGetxController {
     }
   }
 
-  Future<String> createDocument() async {
+  Future<String> createDocument(String groupChatId) async {
     try {
-      DocumentReference documentReference = users.doc();
+      DocumentReference documentReference =
+          chatRooms.doc(groupChatId).collection(groupChatId).doc();
+
       await documentReference.set({
         'from': 'FriendlyFaces',
         'msg':
@@ -104,7 +109,13 @@ class DatabaseController extends ConcreteGetxController {
 
   Future<void> updateChattingWith(
       String currentUserId, String otherUserId) async {
-    Future<String> chatRoom = createDocument();
+    String groupChatId;
+    if (currentUserId.hashCode <= otherUserId.hashCode) {
+      groupChatId = '$currentUserId-$otherUserId';
+    } else {
+      groupChatId = '$otherUserId-$currentUserId';
+    }
+    Future<String> chatRoom = createDocument(groupChatId);
     // Update the current user's document
     DocumentReference currentUserRef = users.doc(currentUserId);
     DocumentSnapshot currentUserSnapshot = await currentUserRef.get();
@@ -112,12 +123,11 @@ class DatabaseController extends ConcreteGetxController {
       Map<String, dynamic>? data =
           currentUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
-      var chattingWith = data["chattingWith"];
-      chattingWith.add(chatRoom);
+      // var chattingWith = data["chattingWith"];
+      // chattingWith.add(chatRoom);
 
       requestList.remove(otherUserId);
-      await currentUserRef
-          .update({'requests': requestList, 'chattingWith': chattingWith});
+      await currentUserRef.update({'requests': requestList});
     }
 
     // Update the other user's document
@@ -127,11 +137,10 @@ class DatabaseController extends ConcreteGetxController {
       Map<String, dynamic>? data =
           otherUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
-      var chattingWith = data["chattingWith"];
-      chattingWith.add(chatRoom);
+      // var chattingWith = data["chattingWith"];
+      // chattingWith.add(chatRoom);
       requestList.remove(currentUserId);
-      await currentUserRef
-          .update({'requests': requestList, 'chattingWith': chattingWith});
+      await currentUserRef.update({'requests': requestList});
     }
   }
 

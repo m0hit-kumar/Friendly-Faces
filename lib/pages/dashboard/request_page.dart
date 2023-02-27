@@ -146,10 +146,15 @@ class _RequestPageState extends State<RequestPage> {
                             color: Color.fromARGB(255, 7, 45, 76),
                           ),
 
-                          const Icon(
-                            Icons.close,
-                            color: Colors.red,
-                            size: 20,
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed("chatPage");
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.red,
+                              size: 20,
+                            ),
                           ),
                         ],
                       ),
