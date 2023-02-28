@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     Get.put(LocationController());
 
     return GetMaterialApp(
-      initialRoute: "/auth",
+      initialRoute: "/homePage",
       theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
       getPages: [

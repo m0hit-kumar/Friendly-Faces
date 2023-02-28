@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/pages/dashboard/home_starter.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,87 +14,113 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final constants = Get.put(Constants());
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser?.uid;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: Get.width,
-        height: Get.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [constants.centerLeftColor, constants.centerRightColor],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
-                  const Text(
-                    "Friendly Faces",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed("/createProfile");
-                    },
-                    child: const CircleAvatar(
-                      radius: 20,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.amber,
+        body: Container(
+          width: Get.width,
+          height: Get.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [constants.centerLeftColor, constants.centerRightColor],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.menu,
+                      color: Colors.white,
                     ),
-                  )
-                ],
-              ),
-            ),
-            const Expanded(child: SizedBox()),
-            InkWell(
-              onTap: () {
-                Get.toNamed("/findConnection");
-              },
-              child: CircleAvatar(
-                backgroundColor: const Color(0xFF32726C),
-                radius: Get.width / 3,
-                backgroundImage: const AssetImage(
-                  'assets/images/group.png',
-                ),
-                child: CircleAvatar(
-                    backgroundColor: const Color(0xFF32726C).withOpacity(0.5),
-                    radius: Get.width / 3,
-                    child: const Center(
-                      child: Icon(
-                        Icons.add,
-                        size: 30,
-                        color: Colors.white,
+                    const Text(
+                      "Friendly Faces",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed("/createProfile");
+                      },
+                      child: const CircleAvatar(
+                        radius: 20,
                       ),
-                    )),
+                    )
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              "Friendly Faces",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700),
-            ),
-            const Text(
-              "Friend is just around the corner",
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            const Expanded(child: SizedBox()),
-          ],
+              Expanded(
+                child: StreamBuilder<Object>(
+                    stream:
+                        _firestore.collection('users').doc(user).snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      Map<String, dynamic>? data = snapshot.data?.data();
+                      print(
+                          "00000000000000 ${data == null ? "empty" : "is not empty"}");
+                      if (snapshot.hasData) {
+                        List<dynamic> connectedConnections =
+                            data!["chattingWith"];
+                        print("00000000000 ${connectedConnections}");
+                        return connectedConnections != []
+                            ? Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20)),
+                                ),
+                                child: ListView.builder(
+                                  itemCount: connectedConnections.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            print(
+                                                "00000000 ${connectedConnections[index]}");
+                                          },
+                                          child: const ListTile(
+                                              leading: CircleAvatar(
+                                                radius: 25,
+                                              ),
+                                              title: Text("nknk"),
+                                              subtitle: Text("jkjk"),
+                                              trailing: Text("ddd")),
+                                        ),
+                                        const Divider()
+                                      ],
+                                    );
+                                  },
+                                ),
+                              )
+                            : const HomePageStarter();
+                      } else {
+                        return const Text('Document does not exist');
+                      }
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );
