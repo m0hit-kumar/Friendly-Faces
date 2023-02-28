@@ -23,7 +23,7 @@ class _CircleWidgetState extends State<CircleWidget> {
         children: [
           Draggable<String>(
             data: 'red',
-            child: CircleOutlineWidget(),
+            child: const CircleOutlineWidget(),
             feedback: Container(
               width: 20,
               height: 20,

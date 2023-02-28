@@ -45,7 +45,7 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
         children: [
           Container(
             // width: Get.width,
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -53,7 +53,7 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
             child: TextFormField(
               controller: widget.controller,
               decoration: InputDecoration(
-                suffixIcon: Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search),
                 hintText: hintText,
               ),
             ),
