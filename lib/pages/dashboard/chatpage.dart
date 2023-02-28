@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/controller/chat_controller.dart';
 import 'package:friendly_faces/widgets/input_widget.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  final String roomId;
+  const ChatPage({super.key, required this.roomId});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -13,8 +16,10 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final constants = Get.put(Constants());
+  final chatController = Get.put(ChatController());
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +48,8 @@ class _ChatPageState extends State<ChatPage> {
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
                     .collection('chatRoom')
-                    .doc("O7e3YQSq36zAMhDBOjDk")
-                    .collection("O7e3YQSq36zAMhDBOjDk")
+                    .doc(widget.roomId)
+                    .collection(widget.roomId)
                     .orderBy('time', descending: true)
                     .snapshots(), // Replace 'messages' with your collection name
                 builder: (context, snapshot) {
@@ -66,26 +71,32 @@ class _ChatPageState extends State<ChatPage> {
                             message as Map<String, dynamic>;
 
                         print("00000000000000 message ${message["msg"]}");
-                        bool iamsender =
-                            message["from"] == "user1" ? true : false;
-                        return Align(
-                            alignment: iamsender
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: iamsender
-                                    ? const Color.fromARGB(255, 47, 125, 108)
-                                    : const Color.fromARGB(255, 0, 180, 165),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Text(
-                                message["msg"],
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ));
+                        final user = _auth.currentUser?.uid;
+
+                        bool iamsender = message["from"] == user ? true : false;
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                          child: Align(
+                              alignment: iamsender
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: iamsender
+                                      ? const Color.fromARGB(255, 47, 125, 108)
+                                      : const Color.fromARGB(255, 0, 180, 165),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    message["msg"],
+                                    // textAlign: TextAlign.justify,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              )),
+                        );
                       },
                       itemCount: listMessage.length,
                       reverse: true,
@@ -116,6 +127,15 @@ class _ChatPageState extends State<ChatPage> {
                   IconButton(
                     onPressed: () {
                       // send message
+
+                      if (_messageController.text.trim().isNotEmpty) {
+                        Map<String, dynamic> data = {
+                          "msg": _messageController.text.trim(),
+                          "time":
+                              DateTime.now().millisecondsSinceEpoch.toString(),
+                        };
+                        chatController.sendMessage(widget.roomId, data);
+                      }
                     },
                     icon: const Icon(
                       Icons.send,

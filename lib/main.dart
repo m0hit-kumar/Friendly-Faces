@@ -71,10 +71,10 @@ class MyApp extends StatelessWidget {
           name: "/mylocation",
           page: () => const MapScreen(),
         ),
-        GetPage(
-          name: "/chatPage",
-          page: () => const ChatPage(),
-        ),
+        // GetPage(
+        //   name: "/chatPage/:chatGroupId",
+        //   page: () =>     ChatPage(),
+        // ),
       ],
     );
   }

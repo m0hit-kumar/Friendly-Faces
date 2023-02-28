@@ -100,7 +100,9 @@ class _HomePageState extends State<HomePage> {
                                             print(
                                                 "00000000 ${connectedConnections[index]}");
                                             Get.dialog(
-                                              const ChatPage(),
+                                              ChatPage(
+                                                  roomId: connectedConnections[
+                                                      index]),
                                               barrierDismissible: false,
                                             );
                                           },
