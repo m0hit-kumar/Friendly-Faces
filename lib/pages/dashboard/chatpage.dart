@@ -22,8 +22,12 @@ class _ChatPageState extends State<ChatPage> {
       child: Scaffold(
         backgroundColor: const Color(0xFFE7F1EF),
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back),
-          title: Text("User"),
+          leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: const Icon(Icons.arrow_back)),
+          title: const Text("User"),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(colors: [

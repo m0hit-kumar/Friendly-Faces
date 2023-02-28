@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/pages/dashboard/chatpage.dart';
 import 'package:friendly_faces/pages/dashboard/home_starter.dart';
 import 'package:get/get.dart';
 
@@ -98,6 +99,10 @@ class _HomePageState extends State<HomePage> {
                                           onTap: () {
                                             print(
                                                 "00000000 ${connectedConnections[index]}");
+                                            Get.dialog(
+                                              const ChatPage(),
+                                              barrierDismissible: false,
+                                            );
                                           },
                                           child: const ListTile(
                                               leading: CircleAvatar(
