@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class _CreateProfileState extends State<CreateProfile> {
   String dobHolder = "1/01/2001";
   final _name = TextEditingController();
   final _email = TextEditingController();
+  final DecorationClass decoration = DecorationClass();
 
   String proffesion = 'IT Proffesional';
   @override
@@ -29,12 +31,7 @@ class _CreateProfileState extends State<CreateProfile> {
         child: Container(
           height: Get.height,
           width: Get.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [constants.centerLeftColor, constants.centerRightColor],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight),
-          ),
+          decoration: decoration.background,
           child: Padding(
             padding: const EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0),
             child: Column(

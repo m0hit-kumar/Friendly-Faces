@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/signup_controller.dart';
 import 'package:friendly_faces/widgets/custom_button.dart';
 import 'package:friendly_faces/widgets/input_widget.dart';
@@ -16,6 +17,7 @@ class _AuthPageState extends State<AuthPage> {
   final constants = Get.put(Constants());
   final authController = Get.put(SignUpController());
   TextEditingController phone = TextEditingController();
+  final DecorationClass decoration = DecorationClass();
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,7 @@ class _AuthPageState extends State<AuthPage> {
       body: Container(
         width: Get.width,
         height: Get.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [constants.centerLeftColor, constants.centerRightColor],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight),
-        ),
+        decoration: decoration.background,
         child: Column(children: [
           SizedBox(
             width: Get.width,

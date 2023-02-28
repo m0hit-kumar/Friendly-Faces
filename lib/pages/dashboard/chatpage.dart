@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/chat_controller.dart';
 import 'package:friendly_faces/widgets/input_widget.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  final DecorationClass decoration = DecorationClass();
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +35,7 @@ class _ChatPageState extends State<ChatPage> {
               },
               child: const Icon(Icons.arrow_back)),
           title: const Text("User"),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                constants.centerLeftColor,
-                constants.centerRightColor
-              ], begin: Alignment.centerLeft, end: Alignment.centerRight),
-            ),
-          ),
+          flexibleSpace: Container(decoration: decoration.background),
         ),
         body: Column(
           children: [
@@ -109,12 +104,7 @@ class _ChatPageState extends State<ChatPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               height: 80.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  constants.centerLeftColor,
-                  constants.centerRightColor
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
-              ),
+              decoration: decoration.background,
               child: Row(
                 children: [
                   Expanded(

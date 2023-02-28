@@ -14,7 +14,7 @@ class LocationController extends GetxController {
   List<Prediction> _predictionList = [];
   Future<List<Prediction>> searchLocation(
       BuildContext context, String text) async {
-    if (text != null && text.isNotEmpty) {
+    if (text != '' && text.isNotEmpty) {
       print("0000000000000text0 $text");
 
       http.Response response = await getLocationData(text);
@@ -22,7 +22,7 @@ class LocationController extends GetxController {
 
       var data = jsonDecode(response.body.toString());
       print("00000000000000 $data");
-      print("my status is " + data["status"]);
+      print("my status is  ${data["status"]}");
       if (data['status'] == 'OK') {
         print("00000000000000 ok");
         _predictionList = [];

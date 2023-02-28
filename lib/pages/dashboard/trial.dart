@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:friendly_faces/widgets/rotating.dart';
-import 'package:get/get.dart';
 
 class CircleWidget extends StatefulWidget {
   const CircleWidget({super.key});
@@ -23,12 +20,12 @@ class _CircleWidgetState extends State<CircleWidget> {
         children: [
           Draggable<String>(
             data: 'red',
-            child: const CircleOutlineWidget(),
             feedback: Container(
               width: 20,
               height: 20,
               color: Colors.green,
             ),
+            child: const CircleOutlineWidget(),
           ),
 
           // Stack(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:friendly_faces/controller/location_service.dart';
 import 'package:friendly_faces/widgets/location_search_widget.dart';
@@ -40,6 +41,8 @@ class _FindConnectionState extends State<FindConnection> {
     getlocation();
   }
 
+  final DecorationClass decoration = DecorationClass();
+
   @override
   Widget build(BuildContext context) {
     print('aaaaaaaaaaaaaaaaaaaaa $selectedValue');
@@ -49,12 +52,7 @@ class _FindConnectionState extends State<FindConnection> {
           padding: const EdgeInsets.all(10),
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [constants.centerLeftColor, constants.centerRightColor],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight),
-          ),
+          decoration: decoration.background,
           child: Column(
             children: [
               Row(

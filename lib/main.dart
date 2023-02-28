@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:friendly_faces/controller/loctemp.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
-import 'package:friendly_faces/pages/dashboard/chatpage.dart';
 import 'package:friendly_faces/pages/dashboard/connection_page.dart';
 import 'package:friendly_faces/pages/dashboard/homepage.dart';
 import 'package:friendly_faces/pages/dashboard/find_connection.dart';

@@ -101,29 +101,22 @@ class _RequestPageState extends State<RequestPage> {
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           const Icon(
                             Icons.account_circle_rounded,
                             color: Colors.grey,
                             size: 38,
                           ),
-
                           Row(
-                            // ignore: prefer_const_literals_to_create_immutables
                             children: [
-                              Container(
-                                child: Text(
-                                  "User " "$index",
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
+                              Text(
+                                "User " "$index",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          //ignore: prefer_const_constructors
-
                           Padding(
                             padding: const EdgeInsets.only(left: 80),
                             child: InkWell(
@@ -138,14 +131,12 @@ class _RequestPageState extends State<RequestPage> {
                               ),
                             ),
                           ),
-
                           const VerticalDivider(
                             thickness: 2,
                             //indent: 20,
                             //endIndent: 0,
                             color: Color.fromARGB(255, 7, 45, 76),
                           ),
-
                           InkWell(
                             onTap: () {
                               Get.toNamed("chatPage");

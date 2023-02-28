@@ -54,6 +54,5 @@ class _HomePageStarterState extends State<HomePageStarter> {
         const Expanded(child: SizedBox()),
       ],
     );
-    ;
   }
 }

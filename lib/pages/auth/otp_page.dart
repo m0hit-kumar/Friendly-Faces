@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/otp_controller.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +26,8 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
   final constants = Get.put(Constants());
   final otpController = Get.put(OtpController());
   // TextEditingController otpController = TextEditingController();
+  final DecorationClass decoration = DecorationClass();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +35,7 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
         child: Container(
           height: Get.height,
           width: Get.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [constants.centerLeftColor, constants.centerRightColor],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight),
-          ),
+          decoration: decoration.background,
           child: Padding(
             padding: const EdgeInsets.only(
                 top: 30.0, bottom: 28.0, left: 28.0, right: 28.0),

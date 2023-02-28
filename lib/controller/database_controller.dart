@@ -87,25 +87,25 @@ class DatabaseController extends ConcreteGetxController {
     }
   }
 
-  Future<String> createDocument(String groupChatId) async {
-    try {
-      DocumentReference documentReference =
-          chatRooms.doc(groupChatId).collection(groupChatId).doc();
+  // Future<String> createDocument(String groupChatId) async {
+  //   try {
+  //     DocumentReference documentReference =
+  //         chatRooms.doc(groupChatId).collection(groupChatId).doc();
 
-      await documentReference.set({
-        'from': 'FriendlyFaces',
-        'msg':
-            'Hello Friend, thank you for using our platform to connect with potential hosts. We hope you find the perfect accommodation for your needs. If you have any questions or concerns, feel free to reach out to our support team.',
-        'time': DateTime.now(),
-      });
-      print(
-          '0000000000000000000000 Document created with ID: ${documentReference.id}');
-      return documentReference.id;
-    } catch (e) {
-      print('00000000000000000 Error creating document: $e');
-      return "";
-    }
-  }
+  //     await documentReference.set({
+  //       'from': 'FriendlyFaces',
+  //       'msg':
+  //           'Hello Friend, thank you for using our platform to connect with potential hosts. We hope you find the perfect accommodation for your needs. If you have any questions or concerns, feel free to reach out to our support team.',
+  //       'time': DateTime.now(),
+  //     });
+  //     print(
+  //         '0000000000000000000000 Document created with ID: ${documentReference.id}');
+  //     return documentReference.id;
+  //   } catch (e) {
+  //     print('00000000000000000 Error creating document: $e');
+  //     return "";
+  //   }
+  // }
 
   Future<void> updateChattingWith(
       String currentUserId, String otherUserId) async {
@@ -115,7 +115,7 @@ class DatabaseController extends ConcreteGetxController {
     } else {
       groupChatId = '$otherUserId-$currentUserId';
     }
-    Future<String> chatRoom = createDocument(groupChatId);
+    // Future<String> chatRoom = createDocument(groupChatId);
     // Update the current user's document
     DocumentReference currentUserRef = users.doc(currentUserId);
     DocumentSnapshot currentUserSnapshot = await currentUserRef.get();

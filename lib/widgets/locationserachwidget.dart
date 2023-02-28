@@ -1,20 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/controller/loctemp.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class LocationSearchDialog extends StatelessWidget {
   final GoogleMapController? mapController;
-  const LocationSearchDialog({required this.mapController});
+  const LocationSearchDialog({super.key, required this.mapController});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
 
     return Container(
       margin: const EdgeInsets.only(top: 150),
@@ -26,7 +23,7 @@ class LocationSearchDialog extends StatelessWidget {
             width: 350,
             child: TypeAheadField(
               textFieldConfiguration: TextFieldConfiguration(
-                controller: _controller,
+                controller: controller,
                 textInputAction: TextInputAction.search,
                 autofocus: true,
                 textCapitalization: TextCapitalization.words,

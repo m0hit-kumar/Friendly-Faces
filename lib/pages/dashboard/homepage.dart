@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/pages/dashboard/chatpage.dart';
 import 'package:friendly_faces/pages/dashboard/home_starter.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   final constants = Get.put(Constants());
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser?.uid;
+  final DecorationClass decoration = DecorationClass();
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,7 @@ class _HomePageState extends State<HomePage> {
         body: Container(
           width: Get.width,
           height: Get.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [constants.centerLeftColor, constants.centerRightColor],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight),
-          ),
+          decoration: decoration.background,
           child: Column(
             children: [
               Padding(
@@ -79,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         List<dynamic> connectedConnections =
                             data!["chattingWith"];
-                        print("00000000000 ${connectedConnections}");
+                        print("00000000000 $connectedConnections");
                         return connectedConnections != []
                             ? Container(
                                 decoration: const BoxDecoration(
