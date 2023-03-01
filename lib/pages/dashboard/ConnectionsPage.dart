@@ -42,7 +42,7 @@ class Chat extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 10,
                   color: Colors.white,
                 ),
