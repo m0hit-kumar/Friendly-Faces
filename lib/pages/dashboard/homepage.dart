@@ -24,9 +24,10 @@ class _HomePageState extends State<HomePage> {
   final database = Get.put(DatabaseController());
 
   bool userExistiInDb = false;
-  void userExist() {
+  void userExist() async {
+    var isExist = await database.userExist();
     setState(() {
-      userExistiInDb = database.userExist() as bool;
+      userExistiInDb = isExist;
     });
   }
 
