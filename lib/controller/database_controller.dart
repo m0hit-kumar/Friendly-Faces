@@ -21,7 +21,8 @@ class DatabaseController extends ConcreteGetxController {
       'name': name,
       'email': email,
       'dob': {"date": dob.day, "month": dob.month, "year": dob.year},
-      'proffesion': proffesion
+      'proffesion': proffesion,
+      "chattingWith": []
     };
 
     users
@@ -145,6 +146,18 @@ class DatabaseController extends ConcreteGetxController {
       await otherUserRef
           .update({'requests': requestList, "chattingWith": chattingWith});
     }
+  }
+
+  Future<bool> userExist() async {
+    final user = _auth.currentUser?.uid;
+
+    DocumentReference documentReference = users.doc(user);
+
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+    if (documentSnapshot.exists) {
+      return true;
+    }
+    return false;
   }
 
   Future<Map<String, dynamic>> getUser() async {
