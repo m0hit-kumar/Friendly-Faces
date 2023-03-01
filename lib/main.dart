@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     Get.put(LocationController());
 
     return GetMaterialApp(
-      initialRoute: "/homePage",
+      initialRoute: "/trial",
       theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: "/trial",
-          page: () => const CircleWidget(),
+          page: () => RotatingCircle(),
         ),
         GetPage(
           name: "/connectionPage",
