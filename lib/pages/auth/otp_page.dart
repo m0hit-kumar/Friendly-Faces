@@ -30,9 +30,9 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
           height: Get.height,
           width: Get.width,
           decoration: decoration.background,
@@ -331,8 +331,8 @@ class _AdminOTPScreenState extends State<AdminOTPScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: Get.height / 4,
+                const Expanded(
+                  child: SizedBox(),
                 ),
                 Center(
                   child: TextButton(
