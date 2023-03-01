@@ -54,9 +54,14 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Icon(
-                              Icons.menu,
-                              color: Colors.white,
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed("findConnection");
+                              },
+                              child: const Icon(
+                                Icons.menu,
+                                color: Colors.white,
+                              ),
                             ),
                             const Text(
                               "Friendly Faces",

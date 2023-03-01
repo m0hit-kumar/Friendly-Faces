@@ -22,7 +22,8 @@ class DatabaseController extends ConcreteGetxController {
       'email': email,
       'dob': {"date": dob.day, "month": dob.month, "year": dob.year},
       'proffesion': proffesion,
-      "chattingWith": []
+      "chattingWith": [],
+      "requests": []
     };
 
     users

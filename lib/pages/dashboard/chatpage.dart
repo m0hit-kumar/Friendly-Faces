@@ -125,6 +125,10 @@ class _ChatPageState extends State<ChatPage> {
                               DateTime.now().millisecondsSinceEpoch.toString(),
                         };
                         chatController.sendMessage(widget.roomId, data);
+
+                        setState(() {
+                          _messageController.text = "";
+                        });
                       }
                     },
                     icon: const Icon(

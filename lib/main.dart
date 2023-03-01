@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     Get.put(LocationController());
 
     return GetMaterialApp(
-      initialRoute: "/otpPage",
+      initialRoute: "/auth",
       theme: ThemeData(canvasColor: Colors.transparent),
       debugShowCheckedModeBanner: false,
       getPages: [
