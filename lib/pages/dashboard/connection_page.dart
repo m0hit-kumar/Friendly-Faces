@@ -12,7 +12,7 @@ class ConnectionPage extends StatefulWidget {
 class _ConnectionPageState extends State<ConnectionPage> {
   final database = Get.put(DatabaseController());
   late Map<String, dynamic> userProfile;
-  List<String> connections = ["k", "j"];
+  List<String> connections = [];
 
   void findConnection() async {
     var data = await database.findConnections();

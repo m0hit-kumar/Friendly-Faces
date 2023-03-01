@@ -37,7 +37,7 @@ class DatabaseController extends ConcreteGetxController {
 
   Future<void> setLocationAndPreference(lat, long, preference) async {
     final user = _auth.currentUser?.uid;
-
+    print("000000000000000000000 setLocationAndPreference $preference");
     return users
         .doc(user)
         .update({
@@ -54,7 +54,10 @@ class DatabaseController extends ConcreteGetxController {
     List<String> oldRequestList = [];
     var data = await getRequests(userid);
     oldRequestList = data;
-    oldRequestList.add(user!);
+
+    if (!oldRequestList.contains(user!)) {
+      oldRequestList.add(user);
+    }
     return users
         .doc(userid)
         .update({"requests": oldRequestList})
@@ -115,19 +118,18 @@ class DatabaseController extends ConcreteGetxController {
     } else {
       groupChatId = '$otherUserId-$currentUserId';
     }
-    // Future<String> chatRoom = createDocument(groupChatId);
-    // Update the current user's document
     DocumentReference currentUserRef = users.doc(currentUserId);
     DocumentSnapshot currentUserSnapshot = await currentUserRef.get();
     if (currentUserSnapshot.exists) {
       Map<String, dynamic>? data =
           currentUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
-      // var chattingWith = data["chattingWith"];
-      // chattingWith.add(chatRoom);
+      var chattingWith = data["chattingWith"];
+      chattingWith.add(groupChatId);
 
       requestList.remove(otherUserId);
-      await currentUserRef.update({'requests': requestList});
+      await currentUserRef
+          .update({'requests': requestList, "chattingWith": chattingWith});
     }
 
     // Update the other user's document
@@ -137,10 +139,11 @@ class DatabaseController extends ConcreteGetxController {
       Map<String, dynamic>? data =
           otherUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
-      // var chattingWith = data["chattingWith"];
-      // chattingWith.add(chatRoom);
+      var chattingWith = data["chattingWith"];
+      chattingWith.add(groupChatId);
       requestList.remove(currentUserId);
-      await currentUserRef.update({'requests': requestList});
+      await otherUserRef
+          .update({'requests': requestList, "chattingWith": chattingWith});
     }
   }
 
@@ -170,9 +173,10 @@ class DatabaseController extends ConcreteGetxController {
   Future<List<String>> findConnections() async {
     final user = _auth.currentUser?.uid;
     List<String> result = [];
-
+    Map<String, dynamic> profile = await getUser();
+    print("0000000000000000 preference ${profile['preference'] == 'friend'}");
     QuerySnapshot querySnapshot =
-        await users.where('preference', isEqualTo: 'room').get();
+        await users.where('preference', isEqualTo: profile['preference']).get();
 
     for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
       result.add(documentSnapshot.id);

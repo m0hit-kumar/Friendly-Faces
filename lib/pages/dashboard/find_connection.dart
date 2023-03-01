@@ -3,6 +3,7 @@ import 'package:friendly_faces/constants/constants.dart';
 import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:friendly_faces/controller/location_service.dart';
+import 'package:friendly_faces/widgets/dialer.dart';
 import 'package:friendly_faces/widgets/location_search_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -42,9 +43,28 @@ class _FindConnectionState extends State<FindConnection> {
   }
 
   final DecorationClass decoration = DecorationClass();
-
+  Map<String, Icon> optionList = {
+    "room": const Icon(
+      Icons.bed,
+      color: Colors.white,
+    ),
+    "travel": const Icon(
+      Icons.commute_sharp,
+      color: Colors.white,
+    ),
+    "accomodation": const Icon(
+      Icons.add_home_work,
+      color: Colors.white,
+    ),
+    "friend": const Icon(
+      Icons.group_add,
+      color: Colors.white,
+    )
+  };
   @override
   Widget build(BuildContext context) {
+    String inputText = 'Search location....';
+
     print('aaaaaaaaaaaaaaaaaaaaa $selectedValue');
     return SafeArea(
       child: Scaffold(
@@ -86,81 +106,163 @@ class _FindConnectionState extends State<FindConnection> {
                       )),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 20, left: 18, right: 18),
-                height: Get.height / 2,
-                child: SingleChildScrollView(
-                  child: LocationSearchDialog(
-                      controller: controller,
-                      onItemSelected: (value) {
-                        setState(() {
-                          selectedValue = value;
-                          controller.text = value["name"];
-                          // isSelected = true;
-                        });
-                      }),
-                ),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Container(
-                  color: Colors.white,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        preference = 'travel';
-                      });
-                    },
-                    child: const Text("travel"),
-                  ),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        preference = 'room';
-                      });
-                    },
-                    child: const Text("roompartner"),
-                  ),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        preference = 'accomodation';
-                      });
-                    },
-                    child: const Text("accomodation"),
-                  ),
-                ),
-              ]),
               InkWell(
                 onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SingleChildScrollView(
+                        child: LocationSearchDialog(
+                            controller: controller,
+                            onItemSelected: (value) {
+                              setState(() {
+                                selectedValue = value;
+                                controller.text = value["name"];
+                                inputText = value['name'];
+                                Navigator.pop(context);
+                                // isSelected = true;
+                              });
+                            }),
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(23),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            inputText,
+                          ),
+                        ),
+                        const Icon(Icons.search),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    preference.toUpperCase(),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Center(
+                  child: Dialer(
+                options: optionList,
+                onItemSelected: (value) {
+                  print('cccccccc');
+                  print("00000000000000000 value $value");
+                  setState(() {
+                    preference = value;
+                  });
+                },
+              )),
+              const Expanded(child: SizedBox()),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(width: 2.0, color: Colors.white),
+                ),
+                onPressed: () async {
                   print("preference----------> $preference");
                   print("Long--------------> $selectedValue");
                   print("getlocation--------------------->$setLocationValue");
-                  try {
-                    database.setLocationAndPreference(
-                        selectedValue["loc"]["lat"],
-                        selectedValue["loc"]["long"],
-                        preference);
-                  } catch (e) {
-                    const Text("This is Center Short Toast");
-                  }
+                  // print("000000000000000000 ${selectedValue["loc"]["lat"]}");
+                  // try {
+
+                  await database.setLocationAndPreference(
+                      selectedValue != null
+                          ? selectedValue["loc"]["lat"]
+                          : setLocationValue.latitude,
+                      selectedValue != null
+                          ? selectedValue["loc"]["long"]
+                          : setLocationValue.longitude,
+                      preference);
+
                   Get.toNamed("connectionPage");
+                  // } catch (e) {
+                  //   const Text("This is Center Short Toast");
+                  // }
                 },
-                child: Container(
-                  color: Colors.amber,
-                  width: Get.width,
-                  height: 40,
-                  child: const Center(child: Text("Find Connection")),
-                ),
+                child: const Center(
+                    child: Text(
+                  "Find Connection",
+                  style: TextStyle(color: Colors.white),
+                )),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  bool _showOptions = false;
+  String _searchText = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(23),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _searchText = value;
+                  _showOptions = true;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              setState(() {
+                _showOptions = true;
+              });
+            },
+          ),
+          if (_showOptions) // This will only show if _showOptions is true
+            Expanded(
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(23),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Text('Options'),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

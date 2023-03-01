@@ -120,9 +120,10 @@ class _RequestPageState extends State<RequestPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 80),
                             child: InkWell(
-                              onTap: () {
-                                database.updateChattingWith(
+                              onTap: () async {
+                                await database.updateChattingWith(
                                     currentUser, requests[index]);
+                                Get.toNamed("homePage");
                               },
                               child: const Icon(
                                 Icons.done_rounded,

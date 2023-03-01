@@ -30,10 +30,12 @@ class _LocationSearchDialogState extends State<LocationSearchDialog> {
     print("....................... ${widget.controller.text}");
     final List<dynamic> newList =
         await location.getSuggestion(widget.controller.text);
-    setState(() {
-      _placeList = [];
-      _placeList = newList;
-    });
+    if (mounted) {
+      setState(() {
+        _placeList = [];
+        _placeList = newList;
+      });
+    }
     print("0000000000000000000000000 $_placeList");
   }
 

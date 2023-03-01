@@ -24,9 +24,25 @@ class _RotatingCircleState extends State<RotatingCircle> {
             setState(() {
               _rotationAngle =
                   (_rotationAngle + details.delta.dx / 100) % (2 * pi);
+              double degrees = _rotationAngle * 180 / pi;
+              if (degrees > 335 || degrees < 15) {
+                print("00000000000000000000000000 0");
+              }
 
-              // print("00000000000 Rotating $_rotationAngle");
+              if (degrees > 70 && degrees < 115) {
+                print("00000000000000000000000000 1");
+              }
+
+              if (degrees > 160 && degrees < 200) {
+                print("00000000000000000000000000 2");
+              }
+              if (degrees > 250 && degrees < 280) {
+                print("00000000000000000000000000 3");
+              }
+
+              print("00000000000 Rotating $degrees");
             });
+            // print("0000000000000000000010 $_rotationAngle");
           },
           child: Container(
             width: Get.width * 0.7,
@@ -141,8 +157,8 @@ class MarkerPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double degrees = angle * 180 / pi;
-
+    // double degrees = angle * 180 / pi;
+    // print("0000000000000000000000 $degrees");
     Paint paint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2.0;
@@ -193,14 +209,14 @@ class LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 10;
+    final radius = size.width / 2;
 
     Paint linePaint = Paint()
-      ..color = Colors.white.withOpacity(0.05)
-      ..strokeWidth = 2.0;
+      ..color = Colors.white.withOpacity(0.03)
+      ..strokeWidth = 2.4;
 
-    for (int i = 0; i < 24; i++) {
-      double angle = pi / 12 * i;
+    for (int i = 0; i < 48; i++) {
+      double angle = pi / 24 * i;
       double startX = center.dx + radius * cos(angle);
       double startY = center.dy + radius * sin(angle);
       double endX = center.dx - radius * cos(angle);
