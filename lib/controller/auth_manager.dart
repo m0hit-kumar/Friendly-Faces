@@ -1,6 +1,7 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:friendly_faces/pages/auth/otp_page.dart";
 import "package:get/get.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class AutenticationManager extends GetxController {
   static get instance => Get.find();
@@ -41,6 +42,12 @@ class AutenticationManager extends GetxController {
     var credential = await _auth.signInWithCredential(
         PhoneAuthProvider.credential(
             verificationId: verificationId, smsCode: otp));
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (credential.user != null) {
+      await prefs.setBool('isloggedIn', true);
+    }
+
     return credential.user != null ? true : false;
   }
 }

@@ -25,16 +25,28 @@ class DatabaseController extends ConcreteGetxController {
       "chattingWith": [],
       "requests": []
     };
-
-    users
-        .doc(user)
-        .update(createProfile)
-        .then((value) =>
-            // ignore: avoid_print
-            {print("000000000000 Profile Created"), Get.toNamed("/homePage")})
-        .catchError(
-            // ignore: avoid_print, invalid_return_type_for_catch_error
-            (error) => print("000000000000Failed to Create user: $error"));
+    bool isExist = await userExist();
+    if (isExist) {
+      users
+          .doc(user)
+          .update(createProfile)
+          .then((value) =>
+              // ignore: avoid_print
+              {print("000000000000 Profile Created"), Get.toNamed("/homePage")})
+          .catchError(
+              // ignore: avoid_print, invalid_return_type_for_catch_error
+              (error) => print("000000000000Failed to Create user: $error"));
+    } else {
+      users
+          .doc(user)
+          .set(createProfile)
+          .then((value) =>
+              // ignore: avoid_print
+              {print("000000000000 Profile Created"), Get.toNamed("/homePage")})
+          .catchError(
+              // ignore: avoid_print, invalid_return_type_for_catch_error
+              (error) => print("000000000000Failed to Create user: $error"));
+    }
   }
 
   Future<void> setLocationAndPreference(lat, long, preference) async {
@@ -127,7 +139,10 @@ class DatabaseController extends ConcreteGetxController {
           currentUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
       var chattingWith = data["chattingWith"];
-      chattingWith.add(groupChatId);
+
+      if (!chattingWith.contains(groupChatId)) {
+        chattingWith.add(groupChatId);
+      }
 
       requestList.remove(otherUserId);
       await currentUserRef
@@ -142,7 +157,10 @@ class DatabaseController extends ConcreteGetxController {
           otherUserSnapshot.data() as Map<String, dynamic>?;
       var requestList = data!["requests"];
       var chattingWith = data["chattingWith"];
-      chattingWith.add(groupChatId);
+
+      if (!chattingWith.contains(groupChatId)) {
+        chattingWith.add(groupChatId);
+      }
       requestList.remove(currentUserId);
       await otherUserRef
           .update({'requests': requestList, "chattingWith": chattingWith});
