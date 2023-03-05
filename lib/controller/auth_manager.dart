@@ -1,4 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
+import "package:friendly_faces/pages/auth/auth_page.dart";
 import "package:friendly_faces/pages/auth/otp_page.dart";
 import "package:get/get.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -33,6 +34,12 @@ class AutenticationManager extends GetxController {
     );
 
     // print("---------------------------- out $verificationId");
+  }
+
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isloggedIn', false);
+    Get.offAll(() => const AuthPage());
   }
 
   Future<bool> verifyOTP(String otp) async {

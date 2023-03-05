@@ -5,8 +5,8 @@ import 'package:friendly_faces/constants/constants.dart';
 import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
-import 'package:friendly_faces/pages/dashboard/chatpage.dart';
-import 'package:friendly_faces/pages/dashboard/home_starter.dart';
+import 'package:friendly_faces/pages/dashboard/chat_section.dart';
+import 'package:friendly_faces/pages/dashboard/navbar.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,127 +37,73 @@ class _HomePageState extends State<HomePage> {
     userExist();
   }
 
+  bool isDrawerOpen = false;
+  double xOffset = 0;
+  double yoffset = 0;
   @override
   Widget build(BuildContext context) {
+    print("0000000000 $xOffset $isDrawerOpen");
+
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.amber,
-          body: userExistiInDb
-              ? Container(
-                  width: Get.width,
-                  height: Get.height,
-                  decoration: decoration.background,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: userExistiInDb
+            ? Stack(
+                children: [
+                  const Navbar(),
+                  AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      transform: Matrix4.translationValues(xOffset, yoffset, 0),
+                      child: Container(
+                        decoration: decoration.background,
+                        child: Column(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed("findConnection");
-                              },
-                              child: const Icon(
-                                Icons.menu,
-                                color: Colors.white,
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      // Get.toNamed("findConnection");
+                                      setState(() {
+                                        isDrawerOpen =
+                                            isDrawerOpen ? false : true;
+                                        xOffset = isDrawerOpen ? 180 : 0;
+                                        yoffset = isDrawerOpen ? 80 : 0;
+                                      });
+                                    },
+                                    child: const Icon(
+                                      Icons.menu,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Friendly Faces",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed("/createProfile");
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 20,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            const Text(
-                              "Friendly Faces",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed("/createProfile");
-                              },
-                              child: const CircleAvatar(
-                                radius: 20,
-                              ),
-                            )
+                            const ChatSection(),
                           ],
                         ),
-                      ),
-                      Expanded(
-                        child: StreamBuilder<Object>(
-                            stream: _firestore
-                                .collection('users')
-                                .doc(user)
-                                .snapshots(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-
-                              Map<String, dynamic>? data =
-                                  snapshot.data?.data();
-                              print(
-                                  "00000000000000 ${data == null ? "empty" : "is not empty"}");
-                              if (snapshot.hasData) {
-                                List<dynamic> connectedConnections =
-                                    data!["chattingWith"];
-                                print("00000000000 $connectedConnections");
-                                return connectedConnections != []
-                                    ? Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20)),
-                                        ),
-                                        child: ListView.builder(
-                                          itemCount:
-                                              connectedConnections.length,
-                                          itemBuilder: (context, index) {
-                                            return Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    print(
-                                                        "00000000 ${connectedConnections[index]}");
-                                                    Get.dialog(
-                                                      ChatPage(
-                                                          roomId:
-                                                              connectedConnections[
-                                                                  index]),
-                                                      barrierDismissible: false,
-                                                    );
-                                                  },
-                                                  child: const ListTile(
-                                                      leading: CircleAvatar(
-                                                        radius: 25,
-                                                      ),
-                                                      title: Text("nknk"),
-                                                      subtitle: Text("jkjk"),
-                                                      trailing: Text("ddd")),
-                                                ),
-                                                const Divider()
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      )
-                                    : const HomePageStarter();
-                              } else {
-                                return const Text('Document does not exist');
-                              }
-                            }),
-                      ),
-                    ],
-                  ),
-                )
-              : const CreateProfile()),
+                      ))
+                ],
+              )
+            : const CreateProfile(),
+      ),
     );
   }
 }

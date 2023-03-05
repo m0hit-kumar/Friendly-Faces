@@ -32,8 +32,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(LocationController());
-
     return GetMaterialApp(
       initialRoute: isloggedIn ? "/homePage" : "/auth",
       theme: ThemeData(canvasColor: Colors.transparent),
@@ -74,10 +72,6 @@ class MyApp extends StatelessWidget {
         // GetPage(
         //   name: "/mylocation",
         //   page: () => const MapScreen(),
-        // ),
-        // GetPage(
-        //   name: "/chatPage/:chatGroupId",
-        //   page: () =>     ChatPage(),
         // ),
       ],
     );
