@@ -44,52 +44,70 @@ class _NavbarState extends State<Navbar> {
             const Divider(
               color: Colors.white,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                "Connection ",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed("/findConnection");
+                },
+                child: const Text(
+                  "Connection ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
             const Divider(
               color: Colors.white,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                "Accommodation",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed("accommodationPage");
+                },
+                child: const Text(
+                  "Accommodation",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
             const Divider(
               color: Colors.white,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                "Requests",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed("/requestPage");
+                },
+                child: const Text(
+                  "Requests",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
             const Divider(
               color: Colors.white,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                "Settings",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: const Text(
+                  "Settings",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
@@ -101,7 +119,6 @@ class _NavbarState extends State<Navbar> {
             GestureDetector(
               onTap: () {
                 print("000000000000000 logged out");
-                setState(() {});
                 _auth.logout();
               },
               child: Row(

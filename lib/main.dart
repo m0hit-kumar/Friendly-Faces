@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/pages/auth/auth_page.dart';
 import 'package:friendly_faces/pages/auth/create_profile.dart';
+import 'package:friendly_faces/pages/dashboard/accommodation_page.dart';
 import 'package:friendly_faces/pages/dashboard/connection_page.dart';
 import 'package:friendly_faces/pages/dashboard/homepage.dart';
 import 'package:friendly_faces/pages/dashboard/find_connection.dart';
@@ -68,6 +69,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/requestPage",
           page: () => const RequestPage(),
+        ),
+        GetPage(
+          name: "/accommodationPage",
+          page: () => const AccommodationPage(),
         ),
         // GetPage(
         //   name: "/mylocation",
