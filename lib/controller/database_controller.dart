@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 
 class DatabaseController extends ConcreteGetxController {
   static get instance => Get.find();
-
   final _auth = FirebaseAuth.instance;
-
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   CollectionReference chatRooms =
       FirebaseFirestore.instance.collection('chatRoom');
@@ -109,7 +107,6 @@ class DatabaseController extends ConcreteGetxController {
   //   try {
   //     DocumentReference documentReference =
   //         chatRooms.doc(groupChatId).collection(groupChatId).doc();
-
   //     await documentReference.set({
   //       'from': 'FriendlyFaces',
   //       'msg':

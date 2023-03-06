@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:friendly_faces/constants/decoration.dart';
 import 'package:get/get.dart';
 
 class AccommodationPage extends StatefulWidget {
@@ -9,119 +10,132 @@ class AccommodationPage extends StatefulWidget {
 }
 
 class _AccommodationPageState extends State<AccommodationPage> {
+  final decoration = DecorationClass();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed("createAccommodationPage");
-        },
-        tooltip: 'Increment',
-        child: const Icon(
-          Icons.create,
-          color: Colors.white,
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 50, 114, 108),
+          onPressed: () {
+            Get.toNamed("createAccommodationPage");
+          },
+          tooltip: 'Create Accommodation',
+          child: const Icon(
+            Icons.create,
+            color: Colors.white,
+          ),
         ),
-      ),
-      backgroundColor: const Color(0xFF32726C),
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Row(
-            children: const [
+        body: Container(
+          height: Get.height,
+          width: Get.width,
+          decoration: decoration.background,
+          child: Column(
+            children: [
               Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Icon(
-                  Icons.arrow_back_ios_rounded,
-                  color: Colors.white,
-                  size: 30,
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        Get.back(canPop: true);
+                      },
+                    ),
+                    // ignore: prefer_const_constructors
+                    const Center(
+                      child: Text(
+                        "Accomodation",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+
+                    const CircleAvatar(
+                      backgroundColor: Colors.red,
+                      backgroundImage: AssetImage("assets/images/one.jpg"),
+                    ),
+                  ],
                 ),
               ),
-              // ignore: prefer_const_constructors
               Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Center(
-                  child: Text(
-                    "Accomodation",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.white),
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 10, right: 10),
+                child: TextField(
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    fillColor: const Color.fromARGB(255, 231, 241, 239),
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none),
+                    hintText: 'Search',
+                    hintStyle:
+                        const TextStyle(color: Colors.black, fontSize: 15),
                   ),
                 ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(left: 60),
-                child: Icon(
-                  Icons.account_circle_rounded,
-                  color: Colors.white,
-                  size: 38,
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    color: Colors.white,
+                  ),
+                  width: Get.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Accommodation Near You",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: GridView.count(
+                            padding: const EdgeInsets.all(8.0),
+                            crossAxisCount: 2,
+                            children: List.generate(20, (index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        "assets/images/one.jpg",
+                                      ),
+                                    ),
+                                    const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text("location")),
+                                    Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Row(
+                                          children: const [
+                                            Icon(Icons.location_city),
+                                            Text("jk"),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                              );
+                            })),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
-          child: TextField(
-            cursorColor: Colors.black,
-            decoration: InputDecoration(
-              fillColor: const Color.fromARGB(255, 231, 241, 239),
-              filled: true,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none),
-              hintText: 'Search',
-              hintStyle: const TextStyle(color: Colors.black, fontSize: 18),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 231, 241, 239),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 1, right: 1),
-                  child: SizedBox(
-                    height: 525,
-                    child: ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      itemCount: 4,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(width: 20, height: 5),
-                      itemBuilder: (context, index) => Padding(
-                        padding:
-                            const EdgeInsets.only(top: 20, left: 20, right: 20),
-                        child: SizedBox(
-                          height: 200,
-                          child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    width: 200,
-                                    color: Colors.grey,
-                                    child: Text("$index"));
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  width: 20,
-                                );
-                              },
-                              itemCount: 4),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )),
-        ),
-      ]),
-    ));
+      ),
+    );
   }
 }

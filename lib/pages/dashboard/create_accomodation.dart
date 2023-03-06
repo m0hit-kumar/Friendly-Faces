@@ -244,8 +244,8 @@ class _CreateAccomodationState extends State<CreateAccomodation> {
                               if (nameValue.isNotEmpty ||
                                   descriptionValue.isNotEmpty) {
                                 accomodation.createAccommodation(
-                                  "hi",
-                                  "need a room",
+                                  nameValue,
+                                  descriptionValue,
                                   _imageFile!,
                                   const GeoPoint(20, 20),
                                 );
