@@ -56,7 +56,7 @@ class _RotatingCircleState extends State<RotatingCircle> {
                   constsnts
                       .centerRightColor, // Darker color atLighter color at edges
                 ],
-                stops: [0.2, 1.0],
+                stops: const [0.2, 1.0],
               ),
               boxShadow: [
                 BoxShadow(

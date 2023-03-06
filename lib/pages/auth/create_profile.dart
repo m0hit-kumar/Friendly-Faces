@@ -24,28 +24,122 @@ class _CreateProfileState extends State<CreateProfile> {
   final DecorationClass decoration = DecorationClass();
 
   String proffesion = 'IT Proffesional';
+  String selectedAvatar = 'one';
+
+  void _openDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Avatar'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('One'),
+              trailing: const CircleAvatar(
+                backgroundColor: Colors.red,
+                backgroundImage: AssetImage('assets/images/one.jpg'),
+              ),
+              onTap: () {
+                setState(() {
+                  selectedAvatar = 'one';
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Two'),
+              trailing: const CircleAvatar(
+                  backgroundColor: Colors.red,
+                  backgroundImage: AssetImage('assets/images/two.jpg')),
+              onTap: () {
+                setState(() {
+                  selectedAvatar = 'two';
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Three'),
+              trailing: const CircleAvatar(
+                  backgroundColor: Colors.red,
+                  backgroundImage: AssetImage('assets/images/three.jpg')),
+              onTap: () {
+                setState(() {
+                  selectedAvatar = 'three';
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Four'),
+              trailing: const CircleAvatar(
+                  backgroundColor: Colors.red,
+                  backgroundImage: AssetImage('assets/images/four.jpg')),
+              onTap: () {
+                setState(() {
+                  selectedAvatar = 'four';
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Close'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: Get.height,
-          width: Get.width,
-          decoration: decoration.background,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0),
+      body: Container(
+        height: Get.height,
+        width: Get.width,
+        decoration: decoration.background,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50.0, left: 30.0, right: 30.0),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Create Profile Page",
+                  "Create Profile",
                   style: TextStyle(
                       fontSize: 30,
                       color: constants.whiteBackground,
                       fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage:
+                          AssetImage("assets/images/$selectedAvatar.jpg"),
+                      backgroundColor: Colors.grey[300],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: _openDialog,
+                  child: const Center(
+                    child: Text(
+                      'Change Profile',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 8.0),
@@ -282,8 +376,8 @@ class _CreateProfileState extends State<CreateProfile> {
                         print(
                             "0000000000000 ${_email.text} ${_name.text} $dob");
 
-                        database.createProfile(
-                            _name.text, _email.text, dob, proffesion);
+                        database.createProfile(_name.text, _email.text, dob,
+                            proffesion, selectedAvatar);
                       },
                       child: Container(
                         decoration: BoxDecoration(

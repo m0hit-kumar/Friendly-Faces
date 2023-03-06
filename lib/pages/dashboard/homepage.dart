@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/constants.dart';
 import 'package:friendly_faces/constants/decoration.dart';
@@ -18,16 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final constants = Get.put(Constants());
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final user = FirebaseAuth.instance.currentUser?.uid;
   final DecorationClass decoration = DecorationClass();
   final database = Get.put(DatabaseController());
 
   bool userExistiInDb = false;
+  late String userAvatar = "one";
   void userExist() async {
     var isExist = await database.userExist();
+    var user = await database.getUser();
+    print("0000000000000001 ${user["profile"]}");
     setState(() {
       userExistiInDb = isExist;
+      userAvatar = user["profile"];
     });
   }
 
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   double yoffset = 0;
   @override
   Widget build(BuildContext context) {
-    print("0000000000 $xOffset $isDrawerOpen");
+    print("0000000000 $xOffset $isDrawerOpen $userAvatar");
 
     return SafeArea(
       child: Scaffold(
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const Navbar(),
                   AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 200),
                       transform: Matrix4.translationValues(xOffset, yoffset, 0),
                       child: Container(
                         decoration: decoration.background,
@@ -65,7 +65,6 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // Get.toNamed("findConnection");
                                       setState(() {
                                         isDrawerOpen =
                                             isDrawerOpen ? false : true;
@@ -73,8 +72,10 @@ class _HomePageState extends State<HomePage> {
                                         yoffset = isDrawerOpen ? 80 : 0;
                                       });
                                     },
-                                    child: const Icon(
-                                      Icons.menu,
+                                    child: Icon(
+                                      isDrawerOpen
+                                          ? Icons.north_west
+                                          : Icons.menu,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -89,7 +90,10 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () {
                                       Get.toNamed("/createProfile");
                                     },
-                                    child: const CircleAvatar(
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      backgroundImage: AssetImage(
+                                          "assets/images/$userAvatar.jpg"),
                                       radius: 20,
                                     ),
                                   )

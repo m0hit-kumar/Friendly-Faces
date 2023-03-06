@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AccommodationPage extends StatefulWidget {
   const AccommodationPage({super.key});
@@ -12,16 +13,23 @@ class _AccommodationPageState extends State<AccommodationPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed("createAccommodationPage");
+        },
+        tooltip: 'Increment',
+        child: const Icon(
+          Icons.create,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: const Color(0xFF32726C),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Row(
-            // ignore: prefer_const_literals_to_create_immutables
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              const Padding(
+            children: const [
+              Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Icon(
                   Icons.arrow_back_ios_rounded,
@@ -31,8 +39,8 @@ class _AccommodationPageState extends State<AccommodationPage> {
               ),
               // ignore: prefer_const_constructors
               Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: const Center(
+                padding: EdgeInsets.only(left: 20),
+                child: Center(
                   child: Text(
                     "Accomodation",
                     style: TextStyle(
@@ -43,10 +51,9 @@ class _AccommodationPageState extends State<AccommodationPage> {
                 ),
               ),
 
-              // ignore: prefer_const_constructors
               Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: const Icon(
+                padding: EdgeInsets.only(left: 60),
+                child: Icon(
                   Icons.account_circle_rounded,
                   color: Colors.white,
                   size: 38,
@@ -60,7 +67,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
           child: TextField(
             cursorColor: Colors.black,
             decoration: InputDecoration(
-              fillColor: Color.fromARGB(255, 231, 241, 239),
+              fillColor: const Color.fromARGB(255, 231, 241, 239),
               filled: true,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),

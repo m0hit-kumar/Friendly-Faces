@@ -134,7 +134,7 @@ class _FindConnectionState extends State<FindConnection> {
                     color: Colors.white,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
                         Expanded(
@@ -210,13 +210,14 @@ class _FindConnectionState extends State<FindConnection> {
 }
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
   @override
-  _MyWidgetState createState() => _MyWidgetState();
+  State<MyWidget> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<MyWidget> {
   bool _showOptions = false;
-  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -231,18 +232,17 @@ class _MyWidgetState extends State<MyWidget> {
             child: TextField(
               onChanged: (value) {
                 setState(() {
-                  _searchText = value;
                   _showOptions = true;
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search...',
                 border: InputBorder.none,
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {
               setState(() {
                 _showOptions = true;
@@ -257,7 +257,7 @@ class _MyWidgetState extends State<MyWidget> {
                   borderRadius: BorderRadius.circular(23),
                   color: Colors.white,
                 ),
-                child: Center(
+                child: const Center(
                   child: Text('Options'),
                 ),
               ),

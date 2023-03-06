@@ -12,8 +12,8 @@ class DatabaseController extends ConcreteGetxController {
   CollectionReference chatRooms =
       FirebaseFirestore.instance.collection('chatRoom');
 
-  Future<void> createProfile(
-      String name, String email, DateTime dob, String proffesion) async {
+  Future<void> createProfile(String name, String email, DateTime dob,
+      String proffesion, String selectedAvatar) async {
     final user = _auth.currentUser?.uid;
     // print("000000000000000000 $user");
 
@@ -23,7 +23,8 @@ class DatabaseController extends ConcreteGetxController {
       'dob': {"date": dob.day, "month": dob.month, "year": dob.year},
       'proffesion': proffesion,
       "chattingWith": [],
-      "requests": []
+      "requests": [],
+      "profile": selectedAvatar == "" ? "one" : selectedAvatar
     };
     bool isExist = await userExist();
     if (isExist) {
