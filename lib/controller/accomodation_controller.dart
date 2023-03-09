@@ -30,6 +30,7 @@ class AccomodationController extends GetxController {
     };
     accommodation
         .doc(user)
+        // .doc("AsMBy61nhjQRd4QvgCmjz0Y1KNS10")
         .set(createAccommodation)
         .then((value) => {
               print("000000000000 accommodation Created"),
@@ -61,9 +62,7 @@ class AccomodationController extends GetxController {
     List<String> result = [];
     Map<String, dynamic> profile = await db.getUser();
     print("0000000000000000 preference ${profile['loc']}");
-    QuerySnapshot querySnapshot = await accommodation
-        .where('preference', isEqualTo: profile['preference'])
-        .get();
+    QuerySnapshot querySnapshot = await accommodation.get();
 
     for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
       result.add(documentSnapshot.id);

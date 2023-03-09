@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/accomodation_controller.dart';
 import 'package:get/get.dart';
+
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 class AccommodationPage extends StatefulWidget {
   const AccommodationPage({super.key});
@@ -11,10 +14,17 @@ class AccommodationPage extends StatefulWidget {
 }
 
 class _AccommodationPageState extends State<AccommodationPage> {
+  final geo = GeoFlutterFire();
   final decoration = DecorationClass();
   final accommodation = Get.put(AccomodationController());
+  final _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
+    GeoFirePoint center =
+        geo.point(latitude: 30.357084347294474, longitude: 76.75669827448608);
+    var collectionReference = _firestore.collection('accommodation');
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -55,7 +65,7 @@ class _AccommodationPageState extends State<AccommodationPage> {
                         onTap: () {
                           accommodation.findAccommodation();
                         },
-                        child: Text(
+                        child: const Text(
                           "Accomodation",
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
@@ -106,34 +116,69 @@ class _AccommodationPageState extends State<AccommodationPage> {
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                       Expanded(
-                        child: GridView.count(
-                            padding: const EdgeInsets.all(8.0),
-                            crossAxisCount: 2,
-                            children: List.generate(20, (index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: Image.asset(
-                                        "assets/images/one.jpg",
-                                      ),
+                        child: StreamBuilder(
+                          stream: geo
+                              .collection(collectionRef: collectionReference)
+                              .within(
+                                  center: center, radius: 50.0, field: "loc"),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const CircularProgressIndicator();
+                            }
+                            final List<DocumentSnapshot> documents =
+                                snapshot.data!;
+                            print("0000000000000000000000001 $documents");
+
+                            return GridView.count(
+                              padding: const EdgeInsets.all(8.0),
+                              crossAxisCount: 2,
+                              children: documents.map(
+                                (document) {
+                                  Map<String, dynamic> data =
+                                      document.data() as Map<String, dynamic>;
+
+                                  final GeoPoint location =
+                                      data["loc"]["geopoint"];
+                                  final String imgUrl = data["image"];
+                                  final String about = data["about"];
+                                  final latitude = location.latitude
+                                      .toString()
+                                      .substring(0, 4);
+                                  final longitude = location.longitude
+                                      .toString()
+                                      .substring(0, 4);
+
+                                  print(
+                                      "00000000000000000 ${location.latitude}");
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Image.network(
+                                            imgUrl,
+                                          ),
+                                        ),
+                                        Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(about)),
+                                        Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              children: [
+                                                const Icon(Icons.location_city),
+                                                Text("$latitude ,$longitude"),
+                                              ],
+                                            )),
+                                      ],
                                     ),
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("location")),
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
-                                          children: const [
-                                            Icon(Icons.location_city),
-                                            Text("jk"),
-                                          ],
-                                        )),
-                                  ],
-                                ),
-                              );
-                            })),
+                                  );
+                                },
+                              ).toList(),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
