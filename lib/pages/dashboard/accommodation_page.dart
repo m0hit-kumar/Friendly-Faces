@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/decoration.dart';
+import 'package:friendly_faces/controller/accomodation_controller.dart';
 import 'package:get/get.dart';
 
 class AccommodationPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class AccommodationPage extends StatefulWidget {
 
 class _AccommodationPageState extends State<AccommodationPage> {
   final decoration = DecorationClass();
+  final accommodation = Get.put(AccomodationController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,10 +50,15 @@ class _AccommodationPageState extends State<AccommodationPage> {
                       },
                     ),
                     // ignore: prefer_const_constructors
-                    const Center(
-                      child: Text(
-                        "Accomodation",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          accommodation.findAccommodation();
+                        },
+                        child: Text(
+                          "Accomodation",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     ),
 

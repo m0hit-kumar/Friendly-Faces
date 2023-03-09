@@ -5,6 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:get/get.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
+
+final geo = GeoFlutterFire();
+final _firestore = FirebaseFirestore.instance;
 
 class AccomodationController extends GetxController {
   final _auth = FirebaseAuth.instance;
@@ -14,11 +18,14 @@ class AccomodationController extends GetxController {
   Future<void> createAccommodation(
       String name, String about, File img, GeoPoint loc) async {
     final user = _auth.currentUser?.uid;
+
     var imgUrl = await uploadImageToFirebase(img, user!);
+    GeoFirePoint myLocation =
+        geo.point(latitude: loc.latitude, longitude: loc.longitude);
     final createAccommodation = {
       'name': name,
       'about': about,
-      "loc": loc,
+      "loc": myLocation.data,
       'image': imgUrl,
     };
     accommodation
@@ -54,13 +61,14 @@ class AccomodationController extends GetxController {
     List<String> result = [];
     Map<String, dynamic> profile = await db.getUser();
     print("0000000000000000 preference ${profile['loc']}");
-    // QuerySnapshot querySnapshot =
-    //     await users.where('preference', isEqualTo: profile['preference']).get();
+    QuerySnapshot querySnapshot = await accommodation
+        .where('preference', isEqualTo: profile['preference'])
+        .get();
 
-    // for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
-    //   result.add(documentSnapshot.id);
-    // }
-    // result.removeWhere((item) => item == user);
+    for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
+      result.add(documentSnapshot.id);
+    }
+    result.removeWhere((item) => item == user);
 
     print("000000000000000 result $result");
     return result;

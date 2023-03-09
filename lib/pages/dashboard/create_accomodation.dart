@@ -247,7 +247,8 @@ class _CreateAccomodationState extends State<CreateAccomodation> {
                                   nameValue,
                                   descriptionValue,
                                   _imageFile!,
-                                  const GeoPoint(20, 20),
+                                  const GeoPoint(
+                                      30.357084347294474, 76.75669827448608),
                                 );
                                 print(
                                     "0000000000 $nameValue $descriptionValue ");
