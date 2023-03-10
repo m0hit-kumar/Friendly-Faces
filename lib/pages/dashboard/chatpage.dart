@@ -29,6 +29,7 @@ class _ChatPageState extends State<ChatPage> {
       child: Scaffold(
         backgroundColor: const Color(0xFFE7F1EF),
         appBar: AppBar(
+          actions: [],
           leading: InkWell(
               onTap: () {
                 Get.back();
