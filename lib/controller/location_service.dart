@@ -57,4 +57,20 @@ class LocationService extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
     return loc;
   }
+
+  Future<String> getLocationFromLatLon(double lat, double lon) async {
+    const apiKey = '5b3ce3597851110001cf6248ad701dfd37ee452da0fb1e53494f9adb';
+    final url =
+        'https://api.openrouteservice.org/geocode/reverse?api_key=$apiKey&point.lon=$lon&point.lat=$lat';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final address = data['features'][0]['properties']['label'];
+
+      return address;
+    } else {
+      throw Exception('Failed to get location');
+    }
+  }
 }

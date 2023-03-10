@@ -14,6 +14,17 @@ class ChatSection extends StatefulWidget {
 }
 
 class _ChatSectionState extends State<ChatSection> {
+  final Mylist = [
+    {"avatar": "one", "user": "Tony Stark", "msg": "hi", "time": "3:30pm"},
+    {
+      "avatar": "two",
+      "user": "Sakshi",
+      "msg": "how are you?",
+      "time": "3:15pm"
+    },
+    {"avatar": "three", "user": "Nirajan", "msg": "hi", "time": "3:10pm"}
+  ];
+
   final constants = Get.put(Constants());
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser?.uid;
@@ -48,6 +59,14 @@ class _ChatSectionState extends State<ChatSection> {
                       child: ListView.builder(
                         itemCount: connectedConnections.length,
                         itemBuilder: (context, index) {
+                          final item = Mylist[index];
+                          print("00000000000000000${item}");
+
+                          final String image = item["avatar"] as String;
+                          final String time = item["time"] as String;
+                          final String user = item["user"] as String;
+                          final String msg = item["msg"] as String;
+
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -61,13 +80,15 @@ class _ChatSectionState extends State<ChatSection> {
                                     barrierDismissible: false,
                                   );
                                 },
-                                child: const ListTile(
+                                child: ListTile(
                                     leading: CircleAvatar(
                                       radius: 25,
+                                      backgroundImage: AssetImage(
+                                          "assets/images/$image.jpg"),
                                     ),
-                                    title: Text("nknk"),
-                                    subtitle: Text("jkjk"),
-                                    trailing: Text("ddd")),
+                                    title: Text(user),
+                                    subtitle: Text(msg),
+                                    trailing: Text(time)),
                               ),
                               const Divider()
                             ],

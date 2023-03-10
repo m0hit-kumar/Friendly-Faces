@@ -41,6 +41,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final avatar = ["one", "two", "three", "four"];
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -86,64 +87,68 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 color: Colors.white,
               ),
               Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Expanded(
-                    child: SizedBox(
-                      // color: Colors.yellow,
-                      height: 602,
-                      child: GridView.count(
-                          crossAxisCount: 2,
-                          children: List.generate(
-                              connections.length,
-                              (index) => Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Container(
-                                      //color: Colors.white,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(20),
-                                        ),
-                                        border: Border.all(
-                                          width: 3,
-                                          color: Colors.white,
-                                          style: BorderStyle.solid,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          const Padding(
-                                            padding: EdgeInsets.all(20),
-                                            child: Icon(
-                                              Icons.account_circle_rounded,
-                                              color: Colors.grey,
-                                              size: 50,
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              database.sendRequest(
-                                                  connections[index]);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  const Color(0xFF32726C),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: const [
-                                                Text(
-                                                  'Connect',
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                padding: const EdgeInsets.all(10),
+                child: Expanded(
+                  child: SizedBox(
+                    // color: Colors.yellow,
+                    height: 700,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      children: List.generate(connections.length, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            //color: Colors.white,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              border: Border.all(
+                                width: 3,
+                                color: Colors.white,
+                                style: BorderStyle.solid,
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.black,
+                                    radius: 32,
+                                    child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: AssetImage(
+                                          "assets/images/${avatar[index]}.jpg"),
                                     ),
-                                  ))),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    database.sendRequest(connections[index]);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF32726C),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Text(
+                                        'Connect',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
                     ),
-                  ))
+                  ),
+                ),
+              )
             ],
           ),
         ),

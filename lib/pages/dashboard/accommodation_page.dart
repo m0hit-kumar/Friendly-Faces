@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/accomodation_controller.dart';
+import 'package:friendly_faces/controller/database_controller.dart';
+import 'package:friendly_faces/controller/location_service.dart';
 import 'package:get/get.dart';
 
 import 'package:geoflutterfire2/geoflutterfire2.dart';
@@ -17,7 +20,9 @@ class _AccommodationPageState extends State<AccommodationPage> {
   final geo = GeoFlutterFire();
   final decoration = DecorationClass();
   final accommodation = Get.put(AccomodationController());
+  final db = Get.put(DatabaseController());
   final _firestore = FirebaseFirestore.instance;
+  final location = Get.put(LocationService());
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +68,12 @@ class _AccommodationPageState extends State<AccommodationPage> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          accommodation.findAccommodation();
+                          location
+                              .getLocationFromLatLon(
+                                  center.latitude, center.longitude)
+                              .then((value) {
+                            print("0000000000000000x$value");
+                          });
                         },
                         child: const Text(
                           "Accomodation",
@@ -142,6 +152,15 @@ class _AccommodationPageState extends State<AccommodationPage> {
                                       data["loc"]["geopoint"];
                                   final String imgUrl = data["image"];
                                   final String about = data["about"];
+                                  // String x="";
+
+                                  // location
+                                  //     .getLocationFromLatLon(
+                                  //         center.latitude, center.longitude)
+                                  //     .then((value) {
+                                  //   print("0000000000000000x$value");
+                                  // });
+
                                   final latitude = location.latitude
                                       .toString()
                                       .substring(0, 4);
@@ -149,29 +168,41 @@ class _AccommodationPageState extends State<AccommodationPage> {
                                       .toString()
                                       .substring(0, 4);
 
-                                  print(
-                                      "00000000000000000 ${location.latitude}");
+                                  final String otherUserId = data["uid"];
+
+                                  // print(
+                                  //     "00000000000000000 ${location.latitude}");
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          child: Image.network(
-                                            imgUrl,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        final user = FirebaseAuth
+                                            .instance.currentUser?.uid;
+
+                                        db.updateChattingWith(
+                                            user.toString(), otherUserId);
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            child: Image.network(
+                                              imgUrl,
+                                            ),
                                           ),
-                                        ),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(about)),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Row(
-                                              children: [
-                                                const Icon(Icons.location_city),
-                                                Text("$latitude ,$longitude"),
-                                              ],
-                                            )),
-                                      ],
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(about)),
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                      Icons.location_city),
+                                                  Text("$latitude ,$longitude"),
+                                                ],
+                                              )),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },

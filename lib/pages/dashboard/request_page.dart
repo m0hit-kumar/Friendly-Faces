@@ -35,6 +35,16 @@ class _RequestPageState extends State<RequestPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Mylist = [
+      {"avatar": "one", "user": "Tony Stark", "msg": "hi", "time": "3:30pm"},
+      {
+        "avatar": "two",
+        "user": "Sakshi",
+        "msg": "how are you?",
+        "time": "3:15pm"
+      },
+      {"avatar": "three", "user": "Nirajan", "msg": "hi", "time": "3:10pm"}
+    ];
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFF32726C),
@@ -81,79 +91,81 @@ class _RequestPageState extends State<RequestPage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: requests.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                      border: Border.all(
-                        width: 3,
-                        color: Colors.white,
-                        style: BorderStyle.solid,
-                      ),
-                    ),
-                    height: 61,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.account_circle_rounded,
-                            color: Colors.grey,
-                            size: 38,
+                  itemCount: requests.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(12),
                           ),
-                          Row(
+                          border: Border.all(
+                            width: 3,
+                            color: Colors.white,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        height: 61,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "User " "$index",
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                              CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    "assets/images/${Mylist[index]["avatar"]}.jpg"),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${Mylist[index]["user"]}",
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 80),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await database.updateChattingWith(
+                                        currentUser, requests[index]);
+                                    Get.toNamed("homePage");
+                                  },
+                                  child: const Icon(
+                                    Icons.done_rounded,
+                                    color: Color(0xFF32726C),
+                                    size: 27,
+                                  ),
+                                ),
+                              ),
+                              const VerticalDivider(
+                                thickness: 2,
+                                //indent: 20,
+                                //endIndent: 0,
+                                color: Color.fromARGB(255, 7, 45, 76),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed("chatPage");
+                                },
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 80),
-                            child: InkWell(
-                              onTap: () async {
-                                await database.updateChattingWith(
-                                    currentUser, requests[index]);
-                                Get.toNamed("homePage");
-                              },
-                              child: const Icon(
-                                Icons.done_rounded,
-                                color: Color(0xFF32726C),
-                                size: 27,
-                              ),
-                            ),
-                          ),
-                          const VerticalDivider(
-                            thickness: 2,
-                            //indent: 20,
-                            //endIndent: 0,
-                            color: Color.fromARGB(255, 7, 45, 76),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Get.toNamed("chatPage");
-                            },
-                            child: const Icon(
-                              Icons.close,
-                              color: Colors.red,
-                              size: 20,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ),
+                    );
+
+                    ;
+                  }),
             ),
           ],
         ),

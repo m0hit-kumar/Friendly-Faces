@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:friendly_faces/controller/database_controller.dart';
 import 'package:get/get.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
@@ -27,6 +29,7 @@ class AccomodationController extends GetxController {
       'about': about,
       "loc": myLocation.data,
       'image': imgUrl,
+      'uid': user
     };
     accommodation
         .doc(user)
@@ -34,6 +37,13 @@ class AccomodationController extends GetxController {
         .set(createAccommodation)
         .then((value) => {
               print("000000000000 accommodation Created"),
+              Fluttertoast.showToast(
+                msg: 'Accommodation created',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.grey,
+                textColor: Colors.white,
+              ),
               Get.back(canPop: true)
             })
         .catchError(
@@ -71,5 +81,22 @@ class AccomodationController extends GetxController {
 
     print("000000000000000 result $result");
     return result;
+  }
+
+  Future<void> deleteAccomodation() async {
+    final user = _auth.currentUser?.uid;
+    try {
+      await accommodation.doc(user).delete();
+      print('000000000 Document $user deleted successfully.');
+      Fluttertoast.showToast(
+        msg: 'Your accommodation request has been removed',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+      );
+    } catch (e) {
+      print('000000000 Error deleting document: $e');
+    }
   }
 }

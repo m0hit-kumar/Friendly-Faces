@@ -54,21 +54,33 @@ class _CreateAccomodationState extends State<CreateAccomodation> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 20,
-                            )),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
                         Text(
-                          "Create Profile",
+                          "Create Accommodation",
                           style: TextStyle(
                             fontSize: 20,
                             color: constants.whiteBackground,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            accomodation.deleteAccomodation();
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: 20,
                           ),
                         ),
                       ],
