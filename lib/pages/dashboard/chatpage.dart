@@ -6,6 +6,7 @@ import 'package:friendly_faces/constants/decoration.dart';
 import 'package:friendly_faces/controller/chat_controller.dart';
 import 'package:friendly_faces/widgets/input_widget.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatPage extends StatefulWidget {
   final String roomId;
@@ -25,11 +26,35 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+//     void _launchPhoneDialer(String phoneNumber) async {
+//   final phoneUrl = 'tel:$phoneNumber';
+//   if (await launchUrl(phoneUrl)) {
+//     await launch(phoneUrl);
+//   } else {
+//     throw 'Could not launch $phoneUrl';
+//   }
+// }
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFE7F1EF),
         appBar: AppBar(
-          actions: [],
+          actions: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                color: const Color.fromARGB(255, 0, 121, 34),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text("Got Comfy"),
+                    Icon(Icons.open_in_new),
+                  ],
+                ),
+              ),
+            )
+          ],
           leading: InkWell(
               onTap: () {
                 Get.back();
